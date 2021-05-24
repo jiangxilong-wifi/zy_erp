@@ -1,0 +1,1321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="zhongyi_ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="T_Admin">
+          <Key>
+            <PropertyRef Name="adminid" />
+          </Key>
+          <Property Name="adminid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adminName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Menu">
+          <Key>
+            <PropertyRef Name="menuid" />
+          </Key>
+          <Property Name="menuid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="menu_name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="T_Operation">
+          <Key>
+            <PropertyRef Name="operationid" />
+          </Key>
+          <Property Name="operationid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="permissionsid" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Permissions">
+          <Key>
+            <PropertyRef Name="permissionsid" />
+          </Key>
+          <Property Name="permissionsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="permissions_type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Permissions_Menu">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="permissionsid" Type="int" />
+          <Property Name="menuid" Type="int" />
+          <Property Name="recordid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Product">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="product_inventory" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_introduce" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Product_output">
+          <Key>
+            <PropertyRef Name="outputid" />
+          </Key>
+          <Property Name="outputid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productid" Type="int" />
+          <Property Name="product_inventory" Type="int" />
+          <Property Name="product_date" Type="date" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Production_Plan">
+          <Key>
+            <PropertyRef Name="Production_Planid" />
+          </Key>
+          <Property Name="Production_Planid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Production_quantity" Type="int" />
+          <Property Name="head" Type="nvarchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="state" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Production_Plan_Details">
+          <Key>
+            <PropertyRef Name="Production_Plan_Detailsid" />
+          </Key>
+          <Property Name="Production_Plan_Detailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Production_Planid" Type="int" />
+          <Property Name="Production_quantity" Type="nvarchar" MaxLength="50" />
+          <Property Name="rawmaterial_inventory" Type="int" />
+        </EntityType>
+        <EntityType Name="T_PurchaseOrders">
+          <Key>
+            <PropertyRef Name="purchaseorderid" />
+          </Key>
+          <Property Name="purchaseorderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplierid" Type="int" />
+          <Property Name="purchaseorder_price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="purchaseorder_ number" Type="nvarchar" MaxLength="50" />
+          <Property Name="state" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="T_PurchaseOrders_Details">
+          <Key>
+            <PropertyRef Name="detailsid" />
+          </Key>
+          <Property Name="detailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purchaseorderid" Type="int" />
+          <Property Name="product_number" Type="int" />
+          <Property Name="rawmaterial_id" Type="int" />
+          <Property Name="rawmaterial_price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="T_Raw_Material">
+          <Key>
+            <PropertyRef Name="rawmaterialtid" />
+          </Key>
+          <Property Name="rawmaterialtid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rawmaterial_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="rawmaterial_inventory" Type="int" />
+          <Property Name="rawmaterial_price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="rawmaterial_introduce" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Raw_Material_output">
+          <Key>
+            <PropertyRef Name="outputid" />
+          </Key>
+          <Property Name="outputid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rawmaterialid" Type="int" />
+          <Property Name="rawmaterial_inventory" Type="int" />
+          <Property Name="rawmaterial_date" Type="date" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Role_Permissions">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="roleid" Type="int" />
+          <Property Name="permissionsid" Type="int" />
+          <Property Name="recordid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_SalesOrders">
+          <Key>
+            <PropertyRef Name="salesorderid" />
+          </Key>
+          <Property Name="salesorderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customerid" Type="int" />
+          <Property Name="salesorder_price" Type="nvarchar" MaxLength="50" />
+          <Property Name="salesorder_ number" Type="nvarchar" MaxLength="50" />
+          <Property Name="state" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="T_SalesOrders_Details">
+          <Key>
+            <PropertyRef Name="Salesdetailsid" />
+          </Key>
+          <Property Name="Salesdetailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="salesorderid" Type="int" />
+          <Property Name="product_number" Type="int" />
+          <Property Name="productid" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_Supplier">
+          <Key>
+            <PropertyRef Name="supplierid" />
+          </Key>
+          <Property Name="supplierid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_User_Role">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="roleid" Type="int" />
+          <Property Name="userid" Type="int" />
+          <Property Name="recordid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="pwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="openid" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_T_Operation_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Operation" Type="Self.T_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Operation">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Operation_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_Operation" Type="Self.T_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="T_Operation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Permissions_Menu_T_Menu">
+          <End Role="T_Menu" Type="Self.T_Menu" Multiplicity="0..1" />
+          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Menu">
+              <PropertyRef Name="menuid" />
+            </Principal>
+            <Dependent Role="T_Permissions_Menu">
+              <PropertyRef Name="menuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Permissions_Menu_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Permissions_Menu">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_output_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="0..1" />
+          <End Role="T_Product_output" Type="Self.T_Product_output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="T_Product_output">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Production_Plan_Details_T_Production_Plan">
+          <End Role="T_Production_Plan" Type="Self.T_Production_Plan" Multiplicity="0..1" />
+          <End Role="T_Production_Plan_Details" Type="Self.T_Production_Plan_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Production_Plan">
+              <PropertyRef Name="Production_Planid" />
+            </Principal>
+            <Dependent Role="T_Production_Plan_Details">
+              <PropertyRef Name="Production_Planid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_Details_T_PurchaseOrders">
+          <End Role="T_PurchaseOrders" Type="Self.T_PurchaseOrders" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders_Details" Type="Self.T_PurchaseOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_PurchaseOrders">
+              <PropertyRef Name="purchaseorderid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders_Details">
+              <PropertyRef Name="Purchaseorderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_Details_T_Raw_Material">
+          <End Role="T_Raw_Material" Type="Self.T_Raw_Material" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders_Details" Type="Self.T_PurchaseOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material">
+              <PropertyRef Name="rawmaterialtid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders_Details">
+              <PropertyRef Name="rawmaterial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_T_Supplier">
+          <End Role="T_Supplier" Type="Self.T_Supplier" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders" Type="Self.T_PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Supplier">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Raw_Material_output_T_Raw_Material">
+          <End Role="T_Raw_Material" Type="Self.T_Raw_Material" Multiplicity="0..1" />
+          <End Role="T_Raw_Material_output" Type="Self.T_Raw_Material_output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material">
+              <PropertyRef Name="rawmaterialtid" />
+            </Principal>
+            <Dependent Role="T_Raw_Material_output">
+              <PropertyRef Name="rawmaterialid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Role_Permissions_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Role_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Role_Permissions_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
+          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="T_Role_Permissions">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SalesOrders_Details_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="0..1" />
+          <End Role="T_SalesOrders_Details" Type="Self.T_SalesOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders_Details">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SalesOrders_Details_T_SalesOrders">
+          <End Role="T_SalesOrders" Type="Self.T_SalesOrders" Multiplicity="1" />
+          <End Role="T_SalesOrders_Details" Type="Self.T_SalesOrders_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_SalesOrders">
+              <PropertyRef Name="salesorderid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders_Details">
+              <PropertyRef Name="Salesdetailsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SalesOrders_T_Customer">
+          <End Role="T_Customer" Type="Self.T_Customer" Multiplicity="0..1" />
+          <End Role="T_SalesOrders" Type="Self.T_SalesOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Customer">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_User_Role_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
+          <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="T_User_Role">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_User_Role_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="T_User_Role">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="P_Select_User_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="zhongyi_ERPModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Admin" EntityType="Self.T_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Customer" EntityType="Self.T_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Menu" EntityType="Self.T_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Operation" EntityType="Self.T_Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Permissions" EntityType="Self.T_Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Permissions_Menu" EntityType="Self.T_Permissions_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Product" EntityType="Self.T_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Product_output" EntityType="Self.T_Product_output" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Production_Plan" EntityType="Self.T_Production_Plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Production_Plan_Details" EntityType="Self.T_Production_Plan_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_PurchaseOrders" EntityType="Self.T_PurchaseOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_PurchaseOrders_Details" EntityType="Self.T_PurchaseOrders_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Raw_Material" EntityType="Self.T_Raw_Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Raw_Material_output" EntityType="Self.T_Raw_Material_output" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role_Permissions" EntityType="Self.T_Role_Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_SalesOrders" EntityType="Self.T_SalesOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_SalesOrders_Details" EntityType="Self.T_SalesOrders_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Supplier" EntityType="Self.T_Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_Operation_T_Permissions" Association="Self.FK_T_Operation_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Operation" EntitySet="T_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Operation_T_Users" Association="Self.FK_T_Operation_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Operation" EntitySet="T_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Permissions_Menu_T_Menu" Association="Self.FK_T_Permissions_Menu_T_Menu">
+            <End Role="T_Menu" EntitySet="T_Menu" />
+            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Permissions_Menu_T_Permissions" Association="Self.FK_T_Permissions_Menu_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_output_T_Product" Association="Self.FK_T_Product_output_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_Product_output" EntitySet="T_Product_output" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Production_Plan_Details_T_Production_Plan" Association="Self.FK_T_Production_Plan_Details_T_Production_Plan">
+            <End Role="T_Production_Plan" EntitySet="T_Production_Plan" />
+            <End Role="T_Production_Plan_Details" EntitySet="T_Production_Plan_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_Details_T_PurchaseOrders" Association="Self.FK_T_PurchaseOrders_Details_T_PurchaseOrders">
+            <End Role="T_PurchaseOrders" EntitySet="T_PurchaseOrders" />
+            <End Role="T_PurchaseOrders_Details" EntitySet="T_PurchaseOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_Details_T_Raw_Material" Association="Self.FK_T_PurchaseOrders_Details_T_Raw_Material">
+            <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
+            <End Role="T_PurchaseOrders_Details" EntitySet="T_PurchaseOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_T_Supplier" Association="Self.FK_T_PurchaseOrders_T_Supplier">
+            <End Role="T_Supplier" EntitySet="T_Supplier" />
+            <End Role="T_PurchaseOrders" EntitySet="T_PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Raw_Material_output_T_Raw_Material" Association="Self.FK_T_Raw_Material_output_T_Raw_Material">
+            <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
+            <End Role="T_Raw_Material_output" EntitySet="T_Raw_Material_output" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Role_Permissions_T_Permissions" Association="Self.FK_T_Role_Permissions_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Role_Permissions_T_Role" Association="Self.FK_T_Role_Permissions_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SalesOrders_Details_T_Product" Association="Self.FK_T_SalesOrders_Details_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_SalesOrders_Details" EntitySet="T_SalesOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SalesOrders_Details_T_SalesOrders" Association="Self.FK_T_SalesOrders_Details_T_SalesOrders">
+            <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
+            <End Role="T_SalesOrders_Details" EntitySet="T_SalesOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SalesOrders_T_Customer" Association="Self.FK_T_SalesOrders_T_Customer">
+            <End Role="T_Customer" EntitySet="T_Customer" />
+            <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_User_Role_T_Role" Association="Self.FK_T_User_Role_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_User_Role" EntitySet="T_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_User_Role_T_Users" Association="Self.FK_T_User_Role_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_User_Role" EntitySet="T_User_Role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zhongyi_ERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="T_Admin">
+          <Key>
+            <PropertyRef Name="adminid" />
+          </Key>
+          <Property Name="adminid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adminName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_SalesOrders" Relationship="Self.FK_T_SalesOrders_T_Customer" FromRole="T_Customer" ToRole="T_SalesOrders" />
+        </EntityType>
+        <EntityType Name="T_Menu">
+          <Key>
+            <PropertyRef Name="menuid" />
+          </Key>
+          <Property Name="menuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="menu_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Permissions_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Menu" FromRole="T_Menu" ToRole="T_Permissions_Menu" />
+        </EntityType>
+        <EntityType Name="T_Operation">
+          <Key>
+            <PropertyRef Name="operationid" />
+          </Key>
+          <Property Name="operationid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="permissionsid" Type="Int32" />
+          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Operation_T_Permissions" FromRole="T_Operation" ToRole="T_Permissions" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Operation_T_Users" FromRole="T_Operation" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_Permissions">
+          <Key>
+            <PropertyRef Name="permissionsid" />
+          </Key>
+          <Property Name="permissionsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="permissions_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Operation" Relationship="Self.FK_T_Operation_T_Permissions" FromRole="T_Permissions" ToRole="T_Operation" />
+          <NavigationProperty Name="T_Permissions_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Permissions" FromRole="T_Permissions" ToRole="T_Permissions_Menu" />
+          <NavigationProperty Name="T_Role_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Permissions" ToRole="T_Role_Permissions" />
+        </EntityType>
+        <EntityType Name="T_Permissions_Menu">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="permissionsid" Type="Int32" />
+          <Property Name="menuid" Type="Int32" />
+          <Property Name="recordid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="T_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Menu" FromRole="T_Permissions_Menu" ToRole="T_Menu" />
+          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Permissions_Menu_T_Permissions" FromRole="T_Permissions_Menu" ToRole="T_Permissions" />
+        </EntityType>
+        <EntityType Name="T_Product">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="product_inventory" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_introduce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Product_output" Relationship="Self.FK_T_Product_output_T_Product" FromRole="T_Product" ToRole="T_Product_output" />
+          <NavigationProperty Name="T_SalesOrders_Details" Relationship="Self.FK_T_SalesOrders_Details_T_Product" FromRole="T_Product" ToRole="T_SalesOrders_Details" />
+        </EntityType>
+        <EntityType Name="T_Product_output">
+          <Key>
+            <PropertyRef Name="outputid" />
+          </Key>
+          <Property Name="outputid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="product_inventory" Type="Int32" />
+          <Property Name="product_date" Type="DateTime" Precision="0" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Product_output_T_Product" FromRole="T_Product_output" ToRole="T_Product" />
+        </EntityType>
+        <EntityType Name="T_Production_Plan">
+          <Key>
+            <PropertyRef Name="Production_Planid" />
+          </Key>
+          <Property Name="Production_Planid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Production_quantity" Type="Int32" />
+          <Property Name="head" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="state" Type="Int32" />
+          <NavigationProperty Name="T_Production_Plan_Details" Relationship="Self.FK_T_Production_Plan_Details_T_Production_Plan" FromRole="T_Production_Plan" ToRole="T_Production_Plan_Details" />
+        </EntityType>
+        <EntityType Name="T_Production_Plan_Details">
+          <Key>
+            <PropertyRef Name="Production_Plan_Detailsid" />
+          </Key>
+          <Property Name="Production_Plan_Detailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Production_Planid" Type="Int32" />
+          <Property Name="Production_quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rawmaterial_inventory" Type="Int32" />
+          <NavigationProperty Name="T_Production_Plan" Relationship="Self.FK_T_Production_Plan_Details_T_Production_Plan" FromRole="T_Production_Plan_Details" ToRole="T_Production_Plan" />
+        </EntityType>
+        <EntityType Name="T_PurchaseOrders">
+          <Key>
+            <PropertyRef Name="purchaseorderid" />
+          </Key>
+          <Property Name="purchaseorderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplierid" Type="Int32" />
+          <Property Name="purchaseorder_price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="purchaseorder__number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="T_PurchaseOrders_Details" Relationship="Self.FK_T_PurchaseOrders_Details_T_PurchaseOrders" FromRole="T_PurchaseOrders" ToRole="T_PurchaseOrders_Details" />
+          <NavigationProperty Name="T_Supplier" Relationship="Self.FK_T_PurchaseOrders_T_Supplier" FromRole="T_PurchaseOrders" ToRole="T_Supplier" />
+        </EntityType>
+        <EntityType Name="T_PurchaseOrders_Details">
+          <Key>
+            <PropertyRef Name="detailsid" />
+          </Key>
+          <Property Name="detailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purchaseorderid" Type="Int32" />
+          <Property Name="product_number" Type="Int32" />
+          <Property Name="rawmaterial_id" Type="Int32" />
+          <Property Name="rawmaterial_price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="T_PurchaseOrders" Relationship="Self.FK_T_PurchaseOrders_Details_T_PurchaseOrders" FromRole="T_PurchaseOrders_Details" ToRole="T_PurchaseOrders" />
+          <NavigationProperty Name="T_Raw_Material" Relationship="Self.FK_T_PurchaseOrders_Details_T_Raw_Material" FromRole="T_PurchaseOrders_Details" ToRole="T_Raw_Material" />
+        </EntityType>
+        <EntityType Name="T_Raw_Material">
+          <Key>
+            <PropertyRef Name="rawmaterialtid" />
+          </Key>
+          <Property Name="rawmaterialtid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rawmaterial_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rawmaterial_inventory" Type="Int32" />
+          <Property Name="rawmaterial_price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="rawmaterial_introduce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_PurchaseOrders_Details" Relationship="Self.FK_T_PurchaseOrders_Details_T_Raw_Material" FromRole="T_Raw_Material" ToRole="T_PurchaseOrders_Details" />
+          <NavigationProperty Name="T_Raw_Material_output" Relationship="Self.FK_T_Raw_Material_output_T_Raw_Material" FromRole="T_Raw_Material" ToRole="T_Raw_Material_output" />
+        </EntityType>
+        <EntityType Name="T_Raw_Material_output">
+          <Key>
+            <PropertyRef Name="outputid" />
+          </Key>
+          <Property Name="outputid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rawmaterialid" Type="Int32" />
+          <Property Name="rawmaterial_inventory" Type="Int32" />
+          <Property Name="rawmaterial_date" Type="DateTime" Precision="0" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Raw_Material" Relationship="Self.FK_T_Raw_Material_output_T_Raw_Material" FromRole="T_Raw_Material_output" ToRole="T_Raw_Material" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Role_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role" ToRole="T_Role_Permissions" />
+          <NavigationProperty Name="T_User_Role" Relationship="Self.FK_T_User_Role_T_Role" FromRole="T_Role" ToRole="T_User_Role" />
+        </EntityType>
+        <EntityType Name="T_Role_Permissions">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" />
+          <Property Name="permissionsid" Type="Int32" />
+          <Property Name="recordid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Role_Permissions" ToRole="T_Permissions" />
+          <NavigationProperty Name="T_Role" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role_Permissions" ToRole="T_Role" />
+        </EntityType>
+        <EntityType Name="T_SalesOrders">
+          <Key>
+            <PropertyRef Name="salesorderid" />
+          </Key>
+          <Property Name="salesorderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerid" Type="Int32" />
+          <Property Name="salesorder_price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salesorder__number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="T_Customer" Relationship="Self.FK_T_SalesOrders_T_Customer" FromRole="T_SalesOrders" ToRole="T_Customer" />
+          <NavigationProperty Name="T_SalesOrders_Details" Relationship="Self.FK_T_SalesOrders_Details_T_SalesOrders" FromRole="T_SalesOrders" ToRole="T_SalesOrders_Details" />
+        </EntityType>
+        <EntityType Name="T_SalesOrders_Details">
+          <Key>
+            <PropertyRef Name="Salesdetailsid" />
+          </Key>
+          <Property Name="Salesdetailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="salesorderid" Type="Int32" />
+          <Property Name="product_number" Type="Int32" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_SalesOrders_Details_T_Product" FromRole="T_SalesOrders_Details" ToRole="T_Product" />
+          <NavigationProperty Name="T_SalesOrders" Relationship="Self.FK_T_SalesOrders_Details_T_SalesOrders" FromRole="T_SalesOrders_Details" ToRole="T_SalesOrders" />
+        </EntityType>
+        <EntityType Name="T_Supplier">
+          <Key>
+            <PropertyRef Name="supplierid" />
+          </Key>
+          <Property Name="supplierid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_PurchaseOrders" Relationship="Self.FK_T_PurchaseOrders_T_Supplier" FromRole="T_Supplier" ToRole="T_PurchaseOrders" />
+        </EntityType>
+        <EntityType Name="T_User_Role">
+          <Key>
+            <PropertyRef Name="recordid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="recordid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="T_Role" Relationship="Self.FK_T_User_Role_T_Role" FromRole="T_User_Role" ToRole="T_Role" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_User_Role_T_Users" FromRole="T_User_Role" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="openid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Operation" Relationship="Self.FK_T_Operation_T_Users" FromRole="T_Users" ToRole="T_Operation" />
+          <NavigationProperty Name="T_User_Role" Relationship="Self.FK_T_User_Role_T_Users" FromRole="T_Users" ToRole="T_User_Role" />
+        </EntityType>
+        <Association Name="FK_T_SalesOrders_T_Customer">
+          <End Role="T_Customer" Type="Self.T_Customer" Multiplicity="0..1" />
+          <End Role="T_SalesOrders" Type="Self.T_SalesOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Customer">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Permissions_Menu_T_Menu">
+          <End Role="T_Menu" Type="Self.T_Menu" Multiplicity="0..1" />
+          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Menu">
+              <PropertyRef Name="menuid" />
+            </Principal>
+            <Dependent Role="T_Permissions_Menu">
+              <PropertyRef Name="menuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Operation_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Operation" Type="Self.T_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Operation">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Operation_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_Operation" Type="Self.T_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="T_Operation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Permissions_Menu_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Permissions_Menu">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Role_Permissions_T_Permissions">
+          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
+          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Principal>
+            <Dependent Role="T_Role_Permissions">
+              <PropertyRef Name="permissionsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_output_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="0..1" />
+          <End Role="T_Product_output" Type="Self.T_Product_output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="T_Product_output">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SalesOrders_Details_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="0..1" />
+          <End Role="T_SalesOrders_Details" Type="Self.T_SalesOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders_Details">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Production_Plan_Details_T_Production_Plan">
+          <End Role="T_Production_Plan" Type="Self.T_Production_Plan" Multiplicity="0..1" />
+          <End Role="T_Production_Plan_Details" Type="Self.T_Production_Plan_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Production_Plan">
+              <PropertyRef Name="Production_Planid" />
+            </Principal>
+            <Dependent Role="T_Production_Plan_Details">
+              <PropertyRef Name="Production_Planid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_Details_T_PurchaseOrders">
+          <End Role="T_PurchaseOrders" Type="Self.T_PurchaseOrders" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders_Details" Type="Self.T_PurchaseOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_PurchaseOrders">
+              <PropertyRef Name="purchaseorderid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders_Details">
+              <PropertyRef Name="Purchaseorderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_T_Supplier">
+          <End Role="T_Supplier" Type="Self.T_Supplier" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders" Type="Self.T_PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Supplier">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_PurchaseOrders_Details_T_Raw_Material">
+          <End Role="T_Raw_Material" Type="Self.T_Raw_Material" Multiplicity="0..1" />
+          <End Role="T_PurchaseOrders_Details" Type="Self.T_PurchaseOrders_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material">
+              <PropertyRef Name="rawmaterialtid" />
+            </Principal>
+            <Dependent Role="T_PurchaseOrders_Details">
+              <PropertyRef Name="rawmaterial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Raw_Material_output_T_Raw_Material">
+          <End Role="T_Raw_Material" Type="Self.T_Raw_Material" Multiplicity="0..1" />
+          <End Role="T_Raw_Material_output" Type="Self.T_Raw_Material_output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material">
+              <PropertyRef Name="rawmaterialtid" />
+            </Principal>
+            <Dependent Role="T_Raw_Material_output">
+              <PropertyRef Name="rawmaterialid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Role_Permissions_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
+          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="T_Role_Permissions">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_User_Role_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
+          <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="T_User_Role">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SalesOrders_Details_T_SalesOrders">
+          <End Role="T_SalesOrders" Type="Self.T_SalesOrders" Multiplicity="1" />
+          <End Role="T_SalesOrders_Details" Type="Self.T_SalesOrders_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_SalesOrders">
+              <PropertyRef Name="salesorderid" />
+            </Principal>
+            <Dependent Role="T_SalesOrders_Details">
+              <PropertyRef Name="Salesdetailsid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_User_Role_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="T_User_Role">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zhongyi_ERPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="T_Admin" EntityType="Self.T_Admin" />
+          <EntitySet Name="T_Customer" EntityType="Self.T_Customer" />
+          <EntitySet Name="T_Menu" EntityType="Self.T_Menu" />
+          <EntitySet Name="T_Operation" EntityType="Self.T_Operation" />
+          <EntitySet Name="T_Permissions" EntityType="Self.T_Permissions" />
+          <EntitySet Name="T_Permissions_Menu" EntityType="Self.T_Permissions_Menu" />
+          <EntitySet Name="T_Product" EntityType="Self.T_Product" />
+          <EntitySet Name="T_Product_output" EntityType="Self.T_Product_output" />
+          <EntitySet Name="T_Production_Plan" EntityType="Self.T_Production_Plan" />
+          <EntitySet Name="T_Production_Plan_Details" EntityType="Self.T_Production_Plan_Details" />
+          <EntitySet Name="T_PurchaseOrders" EntityType="Self.T_PurchaseOrders" />
+          <EntitySet Name="T_PurchaseOrders_Details" EntityType="Self.T_PurchaseOrders_Details" />
+          <EntitySet Name="T_Raw_Material" EntityType="Self.T_Raw_Material" />
+          <EntitySet Name="T_Raw_Material_output" EntityType="Self.T_Raw_Material_output" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" />
+          <EntitySet Name="T_Role_Permissions" EntityType="Self.T_Role_Permissions" />
+          <EntitySet Name="T_SalesOrders" EntityType="Self.T_SalesOrders" />
+          <EntitySet Name="T_SalesOrders_Details" EntityType="Self.T_SalesOrders_Details" />
+          <EntitySet Name="T_Supplier" EntityType="Self.T_Supplier" />
+          <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" />
+          <AssociationSet Name="FK_T_SalesOrders_T_Customer" Association="Self.FK_T_SalesOrders_T_Customer">
+            <End Role="T_Customer" EntitySet="T_Customer" />
+            <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Permissions_Menu_T_Menu" Association="Self.FK_T_Permissions_Menu_T_Menu">
+            <End Role="T_Menu" EntitySet="T_Menu" />
+            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Operation_T_Permissions" Association="Self.FK_T_Operation_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Operation" EntitySet="T_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Operation_T_Users" Association="Self.FK_T_Operation_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Operation" EntitySet="T_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Permissions_Menu_T_Permissions" Association="Self.FK_T_Permissions_Menu_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Role_Permissions_T_Permissions" Association="Self.FK_T_Role_Permissions_T_Permissions">
+            <End Role="T_Permissions" EntitySet="T_Permissions" />
+            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_output_T_Product" Association="Self.FK_T_Product_output_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_Product_output" EntitySet="T_Product_output" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SalesOrders_Details_T_Product" Association="Self.FK_T_SalesOrders_Details_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_SalesOrders_Details" EntitySet="T_SalesOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Production_Plan_Details_T_Production_Plan" Association="Self.FK_T_Production_Plan_Details_T_Production_Plan">
+            <End Role="T_Production_Plan" EntitySet="T_Production_Plan" />
+            <End Role="T_Production_Plan_Details" EntitySet="T_Production_Plan_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_Details_T_PurchaseOrders" Association="Self.FK_T_PurchaseOrders_Details_T_PurchaseOrders">
+            <End Role="T_PurchaseOrders" EntitySet="T_PurchaseOrders" />
+            <End Role="T_PurchaseOrders_Details" EntitySet="T_PurchaseOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_T_Supplier" Association="Self.FK_T_PurchaseOrders_T_Supplier">
+            <End Role="T_Supplier" EntitySet="T_Supplier" />
+            <End Role="T_PurchaseOrders" EntitySet="T_PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_PurchaseOrders_Details_T_Raw_Material" Association="Self.FK_T_PurchaseOrders_Details_T_Raw_Material">
+            <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
+            <End Role="T_PurchaseOrders_Details" EntitySet="T_PurchaseOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Raw_Material_output_T_Raw_Material" Association="Self.FK_T_Raw_Material_output_T_Raw_Material">
+            <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
+            <End Role="T_Raw_Material_output" EntitySet="T_Raw_Material_output" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Role_Permissions_T_Role" Association="Self.FK_T_Role_Permissions_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_User_Role_T_Role" Association="Self.FK_T_User_Role_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_User_Role" EntitySet="T_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SalesOrders_Details_T_SalesOrders" Association="Self.FK_T_SalesOrders_Details_T_SalesOrders">
+            <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
+            <End Role="T_SalesOrders_Details" EntitySet="T_SalesOrders_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_User_Role_T_Users" Association="Self.FK_T_User_Role_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_User_Role" EntitySet="T_User_Role" />
+          </AssociationSet>
+          <FunctionImport Name="P_Select_User_Menu" ReturnType="Collection(zhongyi_ERPModel.P_Select_User_Menu_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="P_Select_User_Menu_Result">
+          <Property Type="String" Name="menu_name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="zhongyi_ERPModelStoreContainer" CdmEntityContainer="zhongyi_ERPEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Admin">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Admin">
+              <MappingFragment StoreEntitySet="T_Admin">
+                <ScalarProperty Name="adminid" ColumnName="adminid" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Customer">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Customer">
+              <MappingFragment StoreEntitySet="T_Customer">
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Menu">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Menu">
+              <MappingFragment StoreEntitySet="T_Menu">
+                <ScalarProperty Name="menuid" ColumnName="menuid" />
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Operation">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Operation">
+              <MappingFragment StoreEntitySet="T_Operation">
+                <ScalarProperty Name="operationid" ColumnName="operationid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Permissions">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Permissions">
+              <MappingFragment StoreEntitySet="T_Permissions">
+                <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
+                <ScalarProperty Name="permissions_type" ColumnName="permissions_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Permissions_Menu">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Permissions_Menu">
+              <MappingFragment StoreEntitySet="T_Permissions_Menu">
+                <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
+                <ScalarProperty Name="menuid" ColumnName="menuid" />
+                <ScalarProperty Name="recordid" ColumnName="recordid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Product">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Product">
+              <MappingFragment StoreEntitySet="T_Product">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_inventory" ColumnName="product_inventory" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_introduce" ColumnName="product_introduce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Product_output">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Product_output">
+              <MappingFragment StoreEntitySet="T_Product_output">
+                <ScalarProperty Name="outputid" ColumnName="outputid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product_inventory" ColumnName="product_inventory" />
+                <ScalarProperty Name="product_date" ColumnName="product_date" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Production_Plan">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Production_Plan">
+              <MappingFragment StoreEntitySet="T_Production_Plan">
+                <ScalarProperty Name="Production_Planid" ColumnName="Production_Planid" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="Production_quantity" ColumnName="Production_quantity" />
+                <ScalarProperty Name="head" ColumnName="head" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Production_Plan_Details">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Production_Plan_Details">
+              <MappingFragment StoreEntitySet="T_Production_Plan_Details">
+                <ScalarProperty Name="Production_Plan_Detailsid" ColumnName="Production_Plan_Detailsid" />
+                <ScalarProperty Name="Production_Planid" ColumnName="Production_Planid" />
+                <ScalarProperty Name="Production_quantity" ColumnName="Production_quantity" />
+                <ScalarProperty Name="rawmaterial_inventory" ColumnName="rawmaterial_inventory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PurchaseOrders">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_PurchaseOrders">
+              <MappingFragment StoreEntitySet="T_PurchaseOrders">
+                <ScalarProperty Name="purchaseorderid" ColumnName="purchaseorderid" />
+                <ScalarProperty Name="supplierid" ColumnName="supplierid" />
+                <ScalarProperty Name="purchaseorder_price" ColumnName="purchaseorder_price" />
+                <ScalarProperty Name="purchaseorder__number" ColumnName="purchaseorder_ number" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PurchaseOrders_Details">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_PurchaseOrders_Details">
+              <MappingFragment StoreEntitySet="T_PurchaseOrders_Details">
+                <ScalarProperty Name="detailsid" ColumnName="detailsid" />
+                <ScalarProperty Name="Purchaseorderid" ColumnName="Purchaseorderid" />
+                <ScalarProperty Name="product_number" ColumnName="product_number" />
+                <ScalarProperty Name="rawmaterial_id" ColumnName="rawmaterial_id" />
+                <ScalarProperty Name="rawmaterial_price" ColumnName="rawmaterial_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Raw_Material">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Raw_Material">
+              <MappingFragment StoreEntitySet="T_Raw_Material">
+                <ScalarProperty Name="rawmaterialtid" ColumnName="rawmaterialtid" />
+                <ScalarProperty Name="rawmaterial_name" ColumnName="rawmaterial_name" />
+                <ScalarProperty Name="rawmaterial_inventory" ColumnName="rawmaterial_inventory" />
+                <ScalarProperty Name="rawmaterial_price" ColumnName="rawmaterial_price" />
+                <ScalarProperty Name="rawmaterial_introduce" ColumnName="rawmaterial_introduce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Raw_Material_output">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Raw_Material_output">
+              <MappingFragment StoreEntitySet="T_Raw_Material_output">
+                <ScalarProperty Name="outputid" ColumnName="outputid" />
+                <ScalarProperty Name="rawmaterialid" ColumnName="rawmaterialid" />
+                <ScalarProperty Name="rawmaterial_inventory" ColumnName="rawmaterial_inventory" />
+                <ScalarProperty Name="rawmaterial_date" ColumnName="rawmaterial_date" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Role">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Role">
+              <MappingFragment StoreEntitySet="T_Role">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Role_Permissions">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Role_Permissions">
+              <MappingFragment StoreEntitySet="T_Role_Permissions">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
+                <ScalarProperty Name="recordid" ColumnName="recordid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_SalesOrders">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_SalesOrders">
+              <MappingFragment StoreEntitySet="T_SalesOrders">
+                <ScalarProperty Name="salesorderid" ColumnName="salesorderid" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="salesorder_price" ColumnName="salesorder_price" />
+                <ScalarProperty Name="salesorder__number" ColumnName="salesorder_ number" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_SalesOrders_Details">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_SalesOrders_Details">
+              <MappingFragment StoreEntitySet="T_SalesOrders_Details">
+                <ScalarProperty Name="Salesdetailsid" ColumnName="Salesdetailsid" />
+                <ScalarProperty Name="salesorderid" ColumnName="salesorderid" />
+                <ScalarProperty Name="product_number" ColumnName="product_number" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Supplier">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Supplier">
+              <MappingFragment StoreEntitySet="T_Supplier">
+                <ScalarProperty Name="supplierid" ColumnName="supplierid" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User_Role">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_User_Role">
+              <MappingFragment StoreEntitySet="T_User_Role">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="recordid" ColumnName="recordid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Users">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Users">
+              <MappingFragment StoreEntitySet="T_Users">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="openid" ColumnName="openid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_Select_User_Menu" FunctionName="zhongyi_ERPModel.Store.P_Select_User_Menu" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_Select_User_Menu_Result">
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
