@@ -11,8 +11,12 @@ namespace zy_erp.Models
 {
     using System;
     
-    public partial class P_Select_User_Menu_Result
+    public partial class P_sel_keywords_Result
     {
-        public string menu_name { get; set; }
+        public int productid { get; set; }
+        public string product_name { get; set; }
+        public Nullable<int> product_inventory { get; set; }
+        public Nullable<decimal> product_price { get; set; }
+        public string product_introduce { get; set; }
     }
 }

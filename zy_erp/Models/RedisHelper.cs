@@ -14,8 +14,7 @@ namespace zy_erp.Models
     public class RedisHelper
     {
         private static readonly string RedisHost = "127.0.0.1:6379";
-        //private static readonly string RedisPwd = "sa123456";
-
+        private static readonly string RedisPwd = "123456";
         private static readonly int RedisDbIndex = 0;
         private static readonly object LockObject = new object();
 
@@ -39,8 +38,8 @@ namespace zy_erp.Models
                                 SyncTimeout = 5000,
                                 EndPoints = { { RedisHost } },
                                 AllowAdmin = true,
-                                KeepAlive = 180
-                                //Password = RedisPwd
+                                KeepAlive = 180,
+                                Password = RedisPwd
                             };
                             _connection = ConnectionMultiplexer.Connect(config);
                             //注册如下事件
@@ -150,10 +149,10 @@ namespace zy_erp.Models
         /// <param name="obj"></param>
         /// <param name="secondTimeout"></param>
         /// <returns></returns>
-        public static bool StringSet<T>(string key, T obj, int secondTimeout)
+        public static bool StringSet<T>(string key, T obj)
         {
             var json = ConvertJson(obj);
-            return Do(db => db.StringSet(key, json, TimeSpan.FromSeconds(secondTimeout)));
+            return Do(db => db.StringSet(key, json));
         }
 
         /// <summary>

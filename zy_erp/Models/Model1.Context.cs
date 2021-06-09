@@ -33,7 +33,6 @@ namespace zy_erp.Models
         public virtual DbSet<T_Menu> T_Menu { get; set; }
         public virtual DbSet<T_Operation> T_Operation { get; set; }
         public virtual DbSet<T_Permissions> T_Permissions { get; set; }
-        public virtual DbSet<T_Permissions_Menu> T_Permissions_Menu { get; set; }
         public virtual DbSet<T_Product> T_Product { get; set; }
         public virtual DbSet<T_Product_output> T_Product_output { get; set; }
         public virtual DbSet<T_Production_Plan> T_Production_Plan { get; set; }
@@ -42,21 +41,58 @@ namespace zy_erp.Models
         public virtual DbSet<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
         public virtual DbSet<T_Raw_Material> T_Raw_Material { get; set; }
         public virtual DbSet<T_Raw_Material_output> T_Raw_Material_output { get; set; }
+        public virtual DbSet<T_Raw_Material_Type> T_Raw_Material_Type { get; set; }
         public virtual DbSet<T_Role> T_Role { get; set; }
-        public virtual DbSet<T_Role_Permissions> T_Role_Permissions { get; set; }
+        public virtual DbSet<T_Role_Permissions_Menu> T_Role_Permissions_Menu { get; set; }
         public virtual DbSet<T_SalesOrders> T_SalesOrders { get; set; }
         public virtual DbSet<T_SalesOrders_Details> T_SalesOrders_Details { get; set; }
         public virtual DbSet<T_Supplier> T_Supplier { get; set; }
+        public virtual DbSet<T_Supplier_Raw_Material_Type> T_Supplier_Raw_Material_Type { get; set; }
         public virtual DbSet<T_User_Role> T_User_Role { get; set; }
         public virtual DbSet<T_Users> T_Users { get; set; }
     
-        public virtual ObjectResult<P_Select_User_Menu_Result> P_Select_User_Menu(Nullable<int> userid)
+        public virtual ObjectResult<P_sel_keywords_Result> P_sel_keywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_sel_keywords_Result>("P_sel_keywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelectProductPage_Result> P_SelectProductPage(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelectProductPage_Result>("P_SelectProductPage", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_user_menu_Permissions_Result> P_user_menu_Permissions(Nullable<int> userid, Nullable<int> menu)
         {
             var useridParameter = userid.HasValue ?
                 new ObjectParameter("userid", userid) :
                 new ObjectParameter("userid", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Select_User_Menu_Result>("P_Select_User_Menu", useridParameter);
+            var menuParameter = menu.HasValue ?
+                new ObjectParameter("menu", menu) :
+                new ObjectParameter("menu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_user_menu_Permissions_Result>("P_user_menu_Permissions", useridParameter, menuParameter);
+        }
+    
+        public virtual ObjectResult<P_userSelMenu_Result> P_userSelMenu(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_userSelMenu_Result>("P_userSelMenu", useridParameter);
         }
     }
 }

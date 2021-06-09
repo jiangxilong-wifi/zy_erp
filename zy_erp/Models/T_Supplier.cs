@@ -18,6 +18,7 @@ namespace zy_erp.Models
         public T_Supplier()
         {
             this.T_PurchaseOrders = new HashSet<T_PurchaseOrders>();
+            this.T_Supplier_Raw_Material_Type = new HashSet<T_Supplier_Raw_Material_Type>();
         }
     
         public int supplierid { get; set; }
@@ -28,5 +29,7 @@ namespace zy_erp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_PurchaseOrders> T_PurchaseOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Supplier_Raw_Material_Type> T_Supplier_Raw_Material_Type { get; set; }
     }
 }

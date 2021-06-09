@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="zhongyi_ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="zhongyi_ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -56,14 +56,6 @@
           </Key>
           <Property Name="permissionsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="permissions_type" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="T_Permissions_Menu">
-          <Key>
-            <PropertyRef Name="recordid" />
-          </Key>
-          <Property Name="permissionsid" Type="int" />
-          <Property Name="menuid" Type="int" />
-          <Property Name="recordid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Product">
           <Key>
@@ -146,6 +138,13 @@
           <Property Name="rawmaterial_date" Type="date" />
           <Property Name="state" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="T_Raw_Material_Type">
+          <Key>
+            <PropertyRef Name="rawmaterialtypeid" />
+          </Key>
+          <Property Name="rawmaterialtypeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rawmaterialtype_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="T_Role">
           <Key>
             <PropertyRef Name="roleid" />
@@ -153,13 +152,14 @@
           <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="role_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="T_Role_Permissions">
+        <EntityType Name="T_Role_Permissions_Menu">
           <Key>
             <PropertyRef Name="recordid" />
           </Key>
           <Property Name="roleid" Type="int" />
           <Property Name="permissionsid" Type="int" />
           <Property Name="recordid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="menuid" Type="int" />
         </EntityType>
         <EntityType Name="T_SalesOrders">
           <Key>
@@ -192,6 +192,14 @@
           <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="T_Supplier_Raw_Material_Type">
+          <Key>
+            <PropertyRef Name="Supplier_Raw_Material_Typeid" />
+          </Key>
+          <Property Name="Supplier_Raw_Material_Typeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rawmaterialtypeid" Type="int" />
+          <Property Name="supplierid" Type="int" />
+        </EntityType>
         <EntityType Name="T_User_Role">
           <Key>
             <PropertyRef Name="recordid" />
@@ -210,6 +218,18 @@
           <Property Name="username" Type="nvarchar" MaxLength="50" />
           <Property Name="openid" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type">
+          <End Role="T_Raw_Material_Type" Type="Self.T_Raw_Material_Type" Multiplicity="0..1" />
+          <End Role="T_Supplier_Raw_Material_Type" Type="Self.T_Supplier_Raw_Material_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material_Type">
+              <PropertyRef Name="rawmaterialtypeid" />
+            </Principal>
+            <Dependent Role="T_Supplier_Raw_Material_Type">
+              <PropertyRef Name="rawmaterialtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Operation_T_Permissions">
           <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
           <End Role="T_Operation" Type="Self.T_Operation" Multiplicity="*" />
@@ -231,30 +251,6 @@
             </Principal>
             <Dependent Role="T_Operation">
               <PropertyRef Name="userid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_T_Permissions_Menu_T_Menu">
-          <End Role="T_Menu" Type="Self.T_Menu" Multiplicity="0..1" />
-          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_Menu">
-              <PropertyRef Name="menuid" />
-            </Principal>
-            <Dependent Role="T_Permissions_Menu">
-              <PropertyRef Name="menuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_T_Permissions_Menu_T_Permissions">
-          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
-          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_Permissions">
-              <PropertyRef Name="permissionsid" />
-            </Principal>
-            <Dependent Role="T_Permissions_Menu">
-              <PropertyRef Name="permissionsid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -330,26 +326,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Role_Permissions_Menu_T_Menu">
+          <End Role="T_Menu" Type="Self.T_Menu" Multiplicity="0..1" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Menu">
+              <PropertyRef Name="menuid" />
+            </Principal>
+            <Dependent Role="T_Role_Permissions_Menu">
+              <PropertyRef Name="menuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Role_Permissions_T_Permissions">
           <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
-          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Permissions">
               <PropertyRef Name="permissionsid" />
             </Principal>
-            <Dependent Role="T_Role_Permissions">
+            <Dependent Role="T_Role_Permissions_Menu">
               <PropertyRef Name="permissionsid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_T_Role_Permissions_T_Role">
           <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
-          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Role">
               <PropertyRef Name="roleid" />
             </Principal>
-            <Dependent Role="T_Role_Permissions">
+            <Dependent Role="T_Role_Permissions_Menu">
               <PropertyRef Name="roleid" />
             </Dependent>
           </ReferentialConstraint>
@@ -390,6 +398,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Supplier_Raw_Material_Type_T_Supplier">
+          <End Role="T_Supplier" Type="Self.T_Supplier" Multiplicity="0..1" />
+          <End Role="T_Supplier_Raw_Material_Type" Type="Self.T_Supplier_Raw_Material_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Supplier">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="T_Supplier_Raw_Material_Type">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_User_Role_T_Role">
           <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
           <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
@@ -414,7 +434,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="P_sel_keywords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="keywords" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="P_Select_User_Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="P_SelectProductPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pagesize" Type="int" Mode="In" />
+          <Parameter Name="pageindex" Type="int" Mode="In" />
+        </Function>
+        <Function Name="P_user_menu_Permissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="menu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="P_userSelMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="zhongyi_ERPModelStoreContainer">
@@ -424,7 +458,6 @@
           <EntitySet Name="T_Menu" EntityType="Self.T_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Operation" EntityType="Self.T_Operation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Permissions" EntityType="Self.T_Permissions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_Permissions_Menu" EntityType="Self.T_Permissions_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Product" EntityType="Self.T_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Product_output" EntityType="Self.T_Product_output" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Production_Plan" EntityType="Self.T_Production_Plan" Schema="dbo" store:Type="Tables" />
@@ -433,13 +466,19 @@
           <EntitySet Name="T_PurchaseOrders_Details" EntityType="Self.T_PurchaseOrders_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Raw_Material" EntityType="Self.T_Raw_Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Raw_Material_output" EntityType="Self.T_Raw_Material_output" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Raw_Material_Type" EntityType="Self.T_Raw_Material_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_Role_Permissions" EntityType="Self.T_Role_Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role_Permissions_Menu" EntityType="Self.T_Role_Permissions_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_SalesOrders" EntityType="Self.T_SalesOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_SalesOrders_Details" EntityType="Self.T_SalesOrders_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Supplier" EntityType="Self.T_Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Supplier_Raw_Material_Type" EntityType="Self.T_Supplier_Raw_Material_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" Association="Self.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type">
+            <End Role="T_Raw_Material_Type" EntitySet="T_Raw_Material_Type" />
+            <End Role="T_Supplier_Raw_Material_Type" EntitySet="T_Supplier_Raw_Material_Type" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Operation_T_Permissions" Association="Self.FK_T_Operation_T_Permissions">
             <End Role="T_Permissions" EntitySet="T_Permissions" />
             <End Role="T_Operation" EntitySet="T_Operation" />
@@ -447,14 +486,6 @@
           <AssociationSet Name="FK_T_Operation_T_Users" Association="Self.FK_T_Operation_T_Users">
             <End Role="T_Users" EntitySet="T_Users" />
             <End Role="T_Operation" EntitySet="T_Operation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_T_Permissions_Menu_T_Menu" Association="Self.FK_T_Permissions_Menu_T_Menu">
-            <End Role="T_Menu" EntitySet="T_Menu" />
-            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
-          </AssociationSet>
-          <AssociationSet Name="FK_T_Permissions_Menu_T_Permissions" Association="Self.FK_T_Permissions_Menu_T_Permissions">
-            <End Role="T_Permissions" EntitySet="T_Permissions" />
-            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Product_output_T_Product" Association="Self.FK_T_Product_output_T_Product">
             <End Role="T_Product" EntitySet="T_Product" />
@@ -480,13 +511,17 @@
             <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
             <End Role="T_Raw_Material_output" EntitySet="T_Raw_Material_output" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_Role_Permissions_Menu_T_Menu" Association="Self.FK_T_Role_Permissions_Menu_T_Menu">
+            <End Role="T_Menu" EntitySet="T_Menu" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Role_Permissions_T_Permissions" Association="Self.FK_T_Role_Permissions_T_Permissions">
             <End Role="T_Permissions" EntitySet="T_Permissions" />
-            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Role_Permissions_T_Role" Association="Self.FK_T_Role_Permissions_T_Role">
             <End Role="T_Role" EntitySet="T_Role" />
-            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_SalesOrders_Details_T_Product" Association="Self.FK_T_SalesOrders_Details_T_Product">
             <End Role="T_Product" EntitySet="T_Product" />
@@ -500,6 +535,10 @@
             <End Role="T_Customer" EntitySet="T_Customer" />
             <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_Supplier_Raw_Material_Type_T_Supplier" Association="Self.FK_T_Supplier_Raw_Material_Type_T_Supplier">
+            <End Role="T_Supplier" EntitySet="T_Supplier" />
+            <End Role="T_Supplier_Raw_Material_Type" EntitySet="T_Supplier_Raw_Material_Type" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_User_Role_T_Role" Association="Self.FK_T_User_Role_T_Role">
             <End Role="T_Role" EntitySet="T_Role" />
             <End Role="T_User_Role" EntitySet="T_User_Role" />
@@ -509,8 +548,7 @@
             <End Role="T_User_Role" EntitySet="T_User_Role" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="zhongyi_ERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -550,7 +588,7 @@
           </Key>
           <Property Name="menuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="menu_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="T_Permissions_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Menu" FromRole="T_Menu" ToRole="T_Permissions_Menu" />
+          <NavigationProperty Name="T_Role_Permissions_Menu" Relationship="Self.FK_T_Role_Permissions_Menu_T_Menu" FromRole="T_Menu" ToRole="T_Role_Permissions_Menu" />
         </EntityType>
         <EntityType Name="T_Operation">
           <Key>
@@ -570,18 +608,7 @@
           <Property Name="permissionsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="permissions_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="T_Operation" Relationship="Self.FK_T_Operation_T_Permissions" FromRole="T_Permissions" ToRole="T_Operation" />
-          <NavigationProperty Name="T_Permissions_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Permissions" FromRole="T_Permissions" ToRole="T_Permissions_Menu" />
-          <NavigationProperty Name="T_Role_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Permissions" ToRole="T_Role_Permissions" />
-        </EntityType>
-        <EntityType Name="T_Permissions_Menu">
-          <Key>
-            <PropertyRef Name="recordid" />
-          </Key>
-          <Property Name="permissionsid" Type="Int32" />
-          <Property Name="menuid" Type="Int32" />
-          <Property Name="recordid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="T_Menu" Relationship="Self.FK_T_Permissions_Menu_T_Menu" FromRole="T_Permissions_Menu" ToRole="T_Menu" />
-          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Permissions_Menu_T_Permissions" FromRole="T_Permissions_Menu" ToRole="T_Permissions" />
+          <NavigationProperty Name="T_Role_Permissions_Menu" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Permissions" ToRole="T_Role_Permissions_Menu" />
         </EntityType>
         <EntityType Name="T_Product">
           <Key>
@@ -676,24 +703,34 @@
           <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="T_Raw_Material" Relationship="Self.FK_T_Raw_Material_output_T_Raw_Material" FromRole="T_Raw_Material_output" ToRole="T_Raw_Material" />
         </EntityType>
+        <EntityType Name="T_Raw_Material_Type">
+          <Key>
+            <PropertyRef Name="rawmaterialtypeid" />
+          </Key>
+          <Property Name="rawmaterialtypeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rawmaterialtype_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Supplier_Raw_Material_Type" Relationship="Self.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" FromRole="T_Raw_Material_Type" ToRole="T_Supplier_Raw_Material_Type" />
+        </EntityType>
         <EntityType Name="T_Role">
           <Key>
             <PropertyRef Name="roleid" />
           </Key>
           <Property Name="roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="T_Role_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role" ToRole="T_Role_Permissions" />
+          <NavigationProperty Name="T_Role_Permissions_Menu" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role" ToRole="T_Role_Permissions_Menu" />
           <NavigationProperty Name="T_User_Role" Relationship="Self.FK_T_User_Role_T_Role" FromRole="T_Role" ToRole="T_User_Role" />
         </EntityType>
-        <EntityType Name="T_Role_Permissions">
+        <EntityType Name="T_Role_Permissions_Menu">
           <Key>
             <PropertyRef Name="recordid" />
           </Key>
           <Property Name="roleid" Type="Int32" />
           <Property Name="permissionsid" Type="Int32" />
           <Property Name="recordid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Role_Permissions" ToRole="T_Permissions" />
-          <NavigationProperty Name="T_Role" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role_Permissions" ToRole="T_Role" />
+          <Property Name="menuid" Type="Int32" />
+          <NavigationProperty Name="T_Menu" Relationship="Self.FK_T_Role_Permissions_Menu_T_Menu" FromRole="T_Role_Permissions_Menu" ToRole="T_Menu" />
+          <NavigationProperty Name="T_Permissions" Relationship="Self.FK_T_Role_Permissions_T_Permissions" FromRole="T_Role_Permissions_Menu" ToRole="T_Permissions" />
+          <NavigationProperty Name="T_Role" Relationship="Self.FK_T_Role_Permissions_T_Role" FromRole="T_Role_Permissions_Menu" ToRole="T_Role" />
         </EntityType>
         <EntityType Name="T_SalesOrders">
           <Key>
@@ -730,6 +767,17 @@
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="T_PurchaseOrders" Relationship="Self.FK_T_PurchaseOrders_T_Supplier" FromRole="T_Supplier" ToRole="T_PurchaseOrders" />
+          <NavigationProperty Name="T_Supplier_Raw_Material_Type" Relationship="Self.FK_T_Supplier_Raw_Material_Type_T_Supplier" FromRole="T_Supplier" ToRole="T_Supplier_Raw_Material_Type" />
+        </EntityType>
+        <EntityType Name="T_Supplier_Raw_Material_Type">
+          <Key>
+            <PropertyRef Name="Supplier_Raw_Material_Typeid" />
+          </Key>
+          <Property Name="Supplier_Raw_Material_Typeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rawmaterialtypeid" Type="Int32" />
+          <Property Name="supplierid" Type="Int32" />
+          <NavigationProperty Name="T_Raw_Material_Type" Relationship="Self.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" FromRole="T_Supplier_Raw_Material_Type" ToRole="T_Raw_Material_Type" />
+          <NavigationProperty Name="T_Supplier" Relationship="Self.FK_T_Supplier_Raw_Material_Type_T_Supplier" FromRole="T_Supplier_Raw_Material_Type" ToRole="T_Supplier" />
         </EntityType>
         <EntityType Name="T_User_Role">
           <Key>
@@ -765,14 +813,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_T_Permissions_Menu_T_Menu">
+        <Association Name="FK_T_Role_Permissions_Menu_T_Menu">
           <End Role="T_Menu" Type="Self.T_Menu" Multiplicity="0..1" />
-          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Menu">
               <PropertyRef Name="menuid" />
             </Principal>
-            <Dependent Role="T_Permissions_Menu">
+            <Dependent Role="T_Role_Permissions_Menu">
               <PropertyRef Name="menuid" />
             </Dependent>
           </ReferentialConstraint>
@@ -801,26 +849,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_T_Permissions_Menu_T_Permissions">
-          <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
-          <End Role="T_Permissions_Menu" Type="Self.T_Permissions_Menu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_Permissions">
-              <PropertyRef Name="permissionsid" />
-            </Principal>
-            <Dependent Role="T_Permissions_Menu">
-              <PropertyRef Name="permissionsid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_T_Role_Permissions_T_Permissions">
           <End Role="T_Permissions" Type="Self.T_Permissions" Multiplicity="0..1" />
-          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Permissions">
               <PropertyRef Name="permissionsid" />
             </Principal>
-            <Dependent Role="T_Role_Permissions">
+            <Dependent Role="T_Role_Permissions_Menu">
               <PropertyRef Name="permissionsid" />
             </Dependent>
           </ReferentialConstraint>
@@ -909,14 +945,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type">
+          <End Role="T_Raw_Material_Type" Type="Self.T_Raw_Material_Type" Multiplicity="0..1" />
+          <End Role="T_Supplier_Raw_Material_Type" Type="Self.T_Supplier_Raw_Material_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Raw_Material_Type">
+              <PropertyRef Name="rawmaterialtypeid" />
+            </Principal>
+            <Dependent Role="T_Supplier_Raw_Material_Type">
+              <PropertyRef Name="rawmaterialtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Role_Permissions_T_Role">
           <End Role="T_Role" Type="Self.T_Role" Multiplicity="0..1" />
-          <End Role="T_Role_Permissions" Type="Self.T_Role_Permissions" Multiplicity="*" />
+          <End Role="T_Role_Permissions_Menu" Type="Self.T_Role_Permissions_Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Role">
               <PropertyRef Name="roleid" />
             </Principal>
-            <Dependent Role="T_Role_Permissions">
+            <Dependent Role="T_Role_Permissions_Menu">
               <PropertyRef Name="roleid" />
             </Dependent>
           </ReferentialConstraint>
@@ -945,6 +993,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Supplier_Raw_Material_Type_T_Supplier">
+          <End Role="T_Supplier" Type="Self.T_Supplier" Multiplicity="0..1" />
+          <End Role="T_Supplier_Raw_Material_Type" Type="Self.T_Supplier_Raw_Material_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Supplier">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="T_Supplier_Raw_Material_Type">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_User_Role_T_Users">
           <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
           <End Role="T_User_Role" Type="Self.T_User_Role" Multiplicity="*" />
@@ -964,7 +1024,6 @@
           <EntitySet Name="T_Menu" EntityType="Self.T_Menu" />
           <EntitySet Name="T_Operation" EntityType="Self.T_Operation" />
           <EntitySet Name="T_Permissions" EntityType="Self.T_Permissions" />
-          <EntitySet Name="T_Permissions_Menu" EntityType="Self.T_Permissions_Menu" />
           <EntitySet Name="T_Product" EntityType="Self.T_Product" />
           <EntitySet Name="T_Product_output" EntityType="Self.T_Product_output" />
           <EntitySet Name="T_Production_Plan" EntityType="Self.T_Production_Plan" />
@@ -973,20 +1032,22 @@
           <EntitySet Name="T_PurchaseOrders_Details" EntityType="Self.T_PurchaseOrders_Details" />
           <EntitySet Name="T_Raw_Material" EntityType="Self.T_Raw_Material" />
           <EntitySet Name="T_Raw_Material_output" EntityType="Self.T_Raw_Material_output" />
+          <EntitySet Name="T_Raw_Material_Type" EntityType="Self.T_Raw_Material_Type" />
           <EntitySet Name="T_Role" EntityType="Self.T_Role" />
-          <EntitySet Name="T_Role_Permissions" EntityType="Self.T_Role_Permissions" />
+          <EntitySet Name="T_Role_Permissions_Menu" EntityType="Self.T_Role_Permissions_Menu" />
           <EntitySet Name="T_SalesOrders" EntityType="Self.T_SalesOrders" />
           <EntitySet Name="T_SalesOrders_Details" EntityType="Self.T_SalesOrders_Details" />
           <EntitySet Name="T_Supplier" EntityType="Self.T_Supplier" />
+          <EntitySet Name="T_Supplier_Raw_Material_Type" EntityType="Self.T_Supplier_Raw_Material_Type" />
           <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" />
           <EntitySet Name="T_Users" EntityType="Self.T_Users" />
           <AssociationSet Name="FK_T_SalesOrders_T_Customer" Association="Self.FK_T_SalesOrders_T_Customer">
             <End Role="T_Customer" EntitySet="T_Customer" />
             <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK_T_Permissions_Menu_T_Menu" Association="Self.FK_T_Permissions_Menu_T_Menu">
+          <AssociationSet Name="FK_T_Role_Permissions_Menu_T_Menu" Association="Self.FK_T_Role_Permissions_Menu_T_Menu">
             <End Role="T_Menu" EntitySet="T_Menu" />
-            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Operation_T_Permissions" Association="Self.FK_T_Operation_T_Permissions">
             <End Role="T_Permissions" EntitySet="T_Permissions" />
@@ -996,13 +1057,9 @@
             <End Role="T_Users" EntitySet="T_Users" />
             <End Role="T_Operation" EntitySet="T_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK_T_Permissions_Menu_T_Permissions" Association="Self.FK_T_Permissions_Menu_T_Permissions">
-            <End Role="T_Permissions" EntitySet="T_Permissions" />
-            <End Role="T_Permissions_Menu" EntitySet="T_Permissions_Menu" />
-          </AssociationSet>
           <AssociationSet Name="FK_T_Role_Permissions_T_Permissions" Association="Self.FK_T_Role_Permissions_T_Permissions">
             <End Role="T_Permissions" EntitySet="T_Permissions" />
-            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Product_output_T_Product" Association="Self.FK_T_Product_output_T_Product">
             <End Role="T_Product" EntitySet="T_Product" />
@@ -1032,9 +1089,13 @@
             <End Role="T_Raw_Material" EntitySet="T_Raw_Material" />
             <End Role="T_Raw_Material_output" EntitySet="T_Raw_Material_output" />
           </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" Association="Self.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type">
+            <End Role="T_Raw_Material_Type" EntitySet="T_Raw_Material_Type" />
+            <End Role="T_Supplier_Raw_Material_Type" EntitySet="T_Supplier_Raw_Material_Type" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Role_Permissions_T_Role" Association="Self.FK_T_Role_Permissions_T_Role">
             <End Role="T_Role" EntitySet="T_Role" />
-            <End Role="T_Role_Permissions" EntitySet="T_Role_Permissions" />
+            <End Role="T_Role_Permissions_Menu" EntitySet="T_Role_Permissions_Menu" />
           </AssociationSet>
           <AssociationSet Name="FK_T_User_Role_T_Role" Association="Self.FK_T_User_Role_T_Role">
             <End Role="T_Role" EntitySet="T_Role" />
@@ -1044,16 +1105,48 @@
             <End Role="T_SalesOrders" EntitySet="T_SalesOrders" />
             <End Role="T_SalesOrders_Details" EntitySet="T_SalesOrders_Details" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_Supplier_Raw_Material_Type_T_Supplier" Association="Self.FK_T_Supplier_Raw_Material_Type_T_Supplier">
+            <End Role="T_Supplier" EntitySet="T_Supplier" />
+            <End Role="T_Supplier_Raw_Material_Type" EntitySet="T_Supplier_Raw_Material_Type" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_User_Role_T_Users" Association="Self.FK_T_User_Role_T_Users">
             <End Role="T_Users" EntitySet="T_Users" />
             <End Role="T_User_Role" EntitySet="T_User_Role" />
           </AssociationSet>
-          <FunctionImport Name="P_Select_User_Menu" ReturnType="Collection(zhongyi_ERPModel.P_Select_User_Menu_Result)">
+          <FunctionImport Name="P_sel_keywords" ReturnType="Collection(zhongyi_ERPModel.P_sel_keywords_Result)">
+          <Parameter Name="keywords" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SelectProductPage" ReturnType="Collection(zhongyi_ERPModel.P_SelectProductPage_Result)">
+            <Parameter Name="pagesize" Mode="In" Type="Int32" />
+            <Parameter Name="pageindex" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="P_user_menu_Permissions" ReturnType="Collection(zhongyi_ERPModel.P_user_menu_Permissions_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="menu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="P_userSelMenu" ReturnType="Collection(zhongyi_ERPModel.P_userSelMenu_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="P_Select_User_Menu_Result">
+        <ComplexType Name="P_sel_keywords_Result">
+          <Property Type="Int32" Name="productid" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="product_inventory" Nullable="true" />
+          <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_introduce" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="P_SelectProductPage_Result">
+          <Property Type="Int32" Name="productid" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="product_inventory" Nullable="true" />
+          <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_introduce" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="P_userSelMenu_Result">
           <Property Type="String" Name="menu_name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="P_user_menu_Permissions_Result">
+          <Property Type="String" Name="permissions_type" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1116,15 +1209,6 @@
               <MappingFragment StoreEntitySet="T_Permissions">
                 <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
                 <ScalarProperty Name="permissions_type" ColumnName="permissions_type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_Permissions_Menu">
-            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Permissions_Menu">
-              <MappingFragment StoreEntitySet="T_Permissions_Menu">
-                <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
-                <ScalarProperty Name="menuid" ColumnName="menuid" />
-                <ScalarProperty Name="recordid" ColumnName="recordid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1217,6 +1301,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="T_Raw_Material_Type">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Raw_Material_Type">
+              <MappingFragment StoreEntitySet="T_Raw_Material_Type">
+                <ScalarProperty Name="rawmaterialtypeid" ColumnName="rawmaterialtypeid" />
+                <ScalarProperty Name="rawmaterialtype_name" ColumnName="rawmaterialtype_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T_Role">
             <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Role">
               <MappingFragment StoreEntitySet="T_Role">
@@ -1225,12 +1317,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_Role_Permissions">
-            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Role_Permissions">
-              <MappingFragment StoreEntitySet="T_Role_Permissions">
+          <EntitySetMapping Name="T_Role_Permissions_Menu">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Role_Permissions_Menu">
+              <MappingFragment StoreEntitySet="T_Role_Permissions_Menu">
                 <ScalarProperty Name="roleid" ColumnName="roleid" />
                 <ScalarProperty Name="permissionsid" ColumnName="permissionsid" />
                 <ScalarProperty Name="recordid" ColumnName="recordid" />
+                <ScalarProperty Name="menuid" ColumnName="menuid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1268,6 +1361,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="T_Supplier_Raw_Material_Type">
+            <EntityTypeMapping TypeName="zhongyi_ERPModel.T_Supplier_Raw_Material_Type">
+              <MappingFragment StoreEntitySet="T_Supplier_Raw_Material_Type">
+                <ScalarProperty Name="Supplier_Raw_Material_Typeid" ColumnName="Supplier_Raw_Material_Typeid" />
+                <ScalarProperty Name="rawmaterialtypeid" ColumnName="rawmaterialtypeid" />
+                <ScalarProperty Name="supplierid" ColumnName="supplierid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T_User_Role">
             <EntityTypeMapping TypeName="zhongyi_ERPModel.T_User_Role">
               <MappingFragment StoreEntitySet="T_User_Role">
@@ -1288,9 +1390,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="P_Select_User_Menu" FunctionName="zhongyi_ERPModel.Store.P_Select_User_Menu" >
+          <FunctionImportMapping FunctionImportName="P_sel_keywords" FunctionName="zhongyi_ERPModel.Store.P_sel_keywords">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_Select_User_Menu_Result">
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_sel_keywords_Result">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_inventory" ColumnName="product_inventory" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_introduce" ColumnName="product_introduce" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_SelectProductPage" FunctionName="zhongyi_ERPModel.Store.P_SelectProductPage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_SelectProductPage_Result">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_inventory" ColumnName="product_inventory" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_introduce" ColumnName="product_introduce" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_user_menu_Permissions" FunctionName="zhongyi_ERPModel.Store.P_user_menu_Permissions" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_user_menu_Permissions_Result">
+                <ScalarProperty Name="permissions_type" ColumnName="permissions_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_userSelMenu" FunctionName="zhongyi_ERPModel.Store.P_userSelMenu" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_userSelMenu_Result">
                 <ScalarProperty Name="menu_name" ColumnName="menu_name" />
               </ComplexTypeMapping>
             </ResultMapping>

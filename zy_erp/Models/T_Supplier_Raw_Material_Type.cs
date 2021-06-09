@@ -12,13 +12,13 @@ namespace zy_erp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_Role_Permissions
+    public partial class T_Supplier_Raw_Material_Type
     {
-        public Nullable<int> roleid { get; set; }
-        public Nullable<int> permissionsid { get; set; }
-        public int recordid { get; set; }
+        public int Supplier_Raw_Material_Typeid { get; set; }
+        public Nullable<int> rawmaterialtypeid { get; set; }
+        public Nullable<int> supplierid { get; set; }
     
-        public virtual T_Permissions T_Permissions { get; set; }
-        public virtual T_Role T_Role { get; set; }
+        public virtual T_Raw_Material_Type T_Raw_Material_Type { get; set; }
+        public virtual T_Supplier T_Supplier { get; set; }
     }
 }

@@ -18,8 +18,7 @@ namespace zy_erp.Models
         public T_Permissions()
         {
             this.T_Operation = new HashSet<T_Operation>();
-            this.T_Permissions_Menu = new HashSet<T_Permissions_Menu>();
-            this.T_Role_Permissions = new HashSet<T_Role_Permissions>();
+            this.T_Role_Permissions_Menu = new HashSet<T_Role_Permissions_Menu>();
         }
     
         public int permissionsid { get; set; }
@@ -28,8 +27,6 @@ namespace zy_erp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Operation> T_Operation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Permissions_Menu> T_Permissions_Menu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Role_Permissions> T_Role_Permissions { get; set; }
+        public virtual ICollection<T_Role_Permissions_Menu> T_Role_Permissions_Menu { get; set; }
     }
 }

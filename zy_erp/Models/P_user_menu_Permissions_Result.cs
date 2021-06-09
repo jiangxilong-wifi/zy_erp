@@ -10,15 +10,9 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Permissions_Menu
+    public partial class P_user_menu_Permissions_Result
     {
-        public Nullable<int> permissionsid { get; set; }
-        public Nullable<int> menuid { get; set; }
-        public int recordid { get; set; }
-    
-        public virtual T_Menu T_Menu { get; set; }
-        public virtual T_Permissions T_Permissions { get; set; }
+        public string permissions_type { get; set; }
     }
 }

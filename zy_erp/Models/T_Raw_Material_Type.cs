@@ -12,18 +12,18 @@ namespace zy_erp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_Menu
+    public partial class T_Raw_Material_Type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_Menu()
+        public T_Raw_Material_Type()
         {
-            this.T_Role_Permissions_Menu = new HashSet<T_Role_Permissions_Menu>();
+            this.T_Supplier_Raw_Material_Type = new HashSet<T_Supplier_Raw_Material_Type>();
         }
     
-        public int menuid { get; set; }
-        public string menu_name { get; set; }
+        public int rawmaterialtypeid { get; set; }
+        public string rawmaterialtype_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Role_Permissions_Menu> T_Role_Permissions_Menu { get; set; }
+        public virtual ICollection<T_Supplier_Raw_Material_Type> T_Supplier_Raw_Material_Type { get; set; }
     }
 }

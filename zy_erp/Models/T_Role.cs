@@ -17,7 +17,7 @@ namespace zy_erp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Role()
         {
-            this.T_Role_Permissions = new HashSet<T_Role_Permissions>();
+            this.T_Role_Permissions_Menu = new HashSet<T_Role_Permissions_Menu>();
             this.T_User_Role = new HashSet<T_User_Role>();
         }
     
@@ -25,7 +25,7 @@ namespace zy_erp.Models
         public string role_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Role_Permissions> T_Role_Permissions { get; set; }
+        public virtual ICollection<T_Role_Permissions_Menu> T_Role_Permissions_Menu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_User_Role> T_User_Role { get; set; }
     }
