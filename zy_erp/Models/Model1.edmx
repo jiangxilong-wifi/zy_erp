@@ -65,7 +65,7 @@
           <Property Name="product_name" Type="nvarchar" MaxLength="50" />
           <Property Name="product_inventory" Type="int" />
           <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="product_introduce" Type="nvarchar" MaxLength="50" />
+          <Property Name="product_introduce" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="T_Product_output">
           <Key>
@@ -618,7 +618,7 @@
           <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="product_inventory" Type="Int32" />
           <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="product_introduce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="product_introduce" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="T_Product_output" Relationship="Self.FK_T_Product_output_T_Product" FromRole="T_Product" ToRole="T_Product_output" />
           <NavigationProperty Name="T_SalesOrders_Details" Relationship="Self.FK_T_SalesOrders_Details_T_Product" FromRole="T_Product" ToRole="T_SalesOrders_Details" />
         </EntityType>
@@ -1125,7 +1125,7 @@
             <Parameter Name="menu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="P_userSelMenu" ReturnType="Collection(zhongyi_ERPModel.P_userSelMenu_Result)">
-            <Parameter Name="userid" Mode="In" Type="Int32" />
+          <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="P_sel_keywords_Result">

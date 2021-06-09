@@ -106,9 +106,49 @@ namespace zy_erp.Controllers
             }
         }
 
-
+        [HttpPost]
+        [Route("api/I_ShopInfo/updated")]
         //用户对数据进行修改
+        public bool updated(T_Product product)
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            if (product == null)
+            {
+                return false;
+            }
+            //查询当前产品号
+            T_Product producted = db.T_Product.FirstOrDefault(p => p.productid == product.productid);
+            //修改当前产品值
+            producted.product_name = product.product_name;
+            producted.product_introduce = product.product_introduce;
+            producted.product_inventory = product.product_inventory;
+            producted.product_price = product.product_price;
+            //将修改同步到数据库
+            if (db.SaveChanges()>0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
 
+        public bool Delete(int productid)
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            var data = db.T_Product.FirstOrDefault(p => p.productid == productid);
+            db.T_Product.Remove(data);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }
