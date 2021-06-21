@@ -15,8 +15,11 @@ namespace zy_erp.Models
     {
         public int productid { get; set; }
         public string product_name { get; set; }
-        public Nullable<int> product_inventory { get; set; }
         public Nullable<decimal> product_price { get; set; }
         public string product_introduce { get; set; }
+        public string product_use { get; set; }
+        public string product_composition { get; set; }
+        public string product_weaving { get; set; }
+        public string product_process { get; set; }
     }
 }

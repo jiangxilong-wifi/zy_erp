@@ -9,11 +9,17 @@ using zy_erp.Models;
 
 namespace zy_erp.Controllers
 {
+    /// <summary>
+    /// 商品信息页面的处理
+    /// </summary>
     public class I_ShopInfoController : ApiController
     {
-        //处理商品信息
-        
-        //分页查询所有商品信息
+        /// <summary>
+        /// 分页查询所有商品信息
+        /// </summary>
+        /// <param name="页码"></param>
+        /// <param name="显示行数"></param>
+        /// <returns></returns>
         public object Get(int ?page,int ?index)//页数，显示行数
         {
             using(zhongyi_ERPEntities db = new zhongyi_ERPEntities())
@@ -25,7 +31,10 @@ namespace zy_erp.Controllers
             }
         }
 
-        //查询总商品数
+        /// <summary>
+        /// 查询总商品数
+        /// </summary>
+        /// <returns></returns>
         public int Get()
         {
             using (zhongyi_ERPEntities db = new zhongyi_ERPEntities())
@@ -37,7 +46,11 @@ namespace zy_erp.Controllers
         }
 
 
-        //查询总商品数
+        /// <summary>
+        /// 产品表模糊查询
+        /// </summary>
+        /// <param name="模糊查询的字段"></param>
+        /// <returns></returns>
         public object Get(string keywords)
         {
             using (zhongyi_ERPEntities db = new zhongyi_ERPEntities())
@@ -49,7 +62,12 @@ namespace zy_erp.Controllers
             }
         }
 
-        //根据商品id查询商品信息
+
+        /// <summary>
+        /// 根据商品id查询商品信息
+        /// </summary>
+        /// <param name="商品id"></param>
+        /// <returns></returns>
         public object Get(int? productid)
         {
             //定义错误信息
@@ -79,17 +97,28 @@ namespace zy_erp.Controllers
             
         }
 
+
+
+        /// <summary>
+        /// 用户是否能进行操作
+        /// </summary>
+        /// <param name="动态类"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/I_ShopInfo/userIsOperation")]
-        //用户是否能进行操作
         public bool userIsOperation(dynamic dy)
         {
             //获取用户id
             int userid = 0;
             try
             {
-
+                //获取用户id
                 userid = UserPermissions.UserJwt(dy.token.ToString());
+                //判断是否非法登录
+                if (userid == -1)
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {
@@ -106,9 +135,14 @@ namespace zy_erp.Controllers
             }
         }
 
+
+        /// <summary>
+        /// 用户对数据进行修改
+        /// </summary>
+        /// <param name="产品表字段"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/I_ShopInfo/updated")]
-        //用户对数据进行修改
         public bool updated(T_Product product)
         {
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
@@ -121,7 +155,10 @@ namespace zy_erp.Controllers
             //修改当前产品值
             producted.product_name = product.product_name;
             producted.product_introduce = product.product_introduce;
-            producted.product_inventory = product.product_inventory;
+            producted.product_use= product.product_use;
+            producted.product_composition= product.product_composition;
+            producted.product_weaving= product.product_weaving;
+            producted.product_process = product.product_process;
             producted.product_price = product.product_price;
             //将修改同步到数据库
             if (db.SaveChanges()>0)
@@ -135,19 +172,51 @@ namespace zy_erp.Controllers
             
         }
 
-        public bool Delete(int productid)
+
+        /// <summary>
+        /// 执行删除操作
+        /// </summary>
+        /// <param name="动态类"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/I_ShopInfo/DelPro")]
+        public int DelPro(dynamic dy)
         {
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
-            var data = db.T_Product.FirstOrDefault(p => p.productid == productid);
-            db.T_Product.Remove(data);
-            if (db.SaveChanges() > 0)
+            //获取传输数值
+            int userid = UserPermissions.UserJwt(dy.token.ToString());
+            //获取操作类型
+            string type = dy.type.ToString();
+            //获取id
+            int pid = int.Parse(dy.productid.ToString());
+            //判断能否进行删除操作
+            if (UserPermissions.UserIsOperation(userid,1,type))
             {
-                return true;
+                try
+                {
+                    var data = db.T_Product.FirstOrDefault(p => p.productid == pid);
+                    db.T_Product.Remove(data);
+                    if (db.SaveChanges() > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return -1;
+                }
+               
             }
             else
             {
-                return false;
+                return 0;
             }
+            
         }
 
     }

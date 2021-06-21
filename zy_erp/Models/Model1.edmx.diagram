@@ -4,49 +4,56 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b426a7e921fe4bfdb4d6d9eaffc7249f" Name="Diagram1">
-        <EntityTypeShape EntityType="zhongyi_ERPModel.sysdiagrams" Width="1.5" PointX="13" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Admin" Width="1.5" PointX="13" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Customer" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Menu" Width="1.5" PointX="1" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Operation" Width="1.5" PointX="3.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Permissions" Width="1.5" PointX="1" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_output" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan" Width="1.5" PointX="8" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan_Details" Width="1.5" PointX="10.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders_Details" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_output" Width="1.5" PointX="10.5" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_Type" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Role" Width="1.5" PointX="1" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Role_Permissions_Menu" Width="1.5" PointX="3.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_SalesOrders" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_SalesOrders_Details" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Supplier" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Supplier_Raw_Material_Type" Width="1.5" PointX="8.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_User_Role" Width="1.5" PointX="3.25" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Users" Width="1.5" PointX="1" PointY="10.75" IsExpanded="true" />
+      <Diagram DiagramId="a16d08b21a3442e895a783a90c97fa59" Name="Diagram1">
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Customer" Width="1.5" PointX="6.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Menu" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Operation" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Permissions" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product" Width="1.5" PointX="5.875" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_Inventory" Width="1.5" PointX="8" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan" Width="1.5" PointX="12.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan_Details" PointX="15" PointY="10.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders" Width="1.5" PointX="8" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders_Details" Width="1.5" PointX="10.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_Type" Width="1.5" PointX="5.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Role" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Role_Permissions_Menu" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_SalesOrders" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_SalesOrders_Details" Width="1.5" PointX="11" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Supplier" Width="1.5" PointX="5.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Supplier_Raw_Material_Type" Width="1.5" PointX="8" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_User_Role" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Users" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_SalesOrders_T_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Role_Permissions_Menu_T_Menu" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Operation_T_Permissions" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Operation_T_Users" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Role_Permissions_T_Permissions" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Product_output_T_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_Product_Inventory_T_Product" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_SalesOrders_Details_T_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Production_Plan_Details_T_Production_Plan" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="zhongyi_ERPModel.FK_T_Production_Plan_Details_T_Production_Plan" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_Details_T_PurchaseOrders" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_T_Supplier" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_Details_T_Raw_Material" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Raw_Material_output_T_Raw_Material" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Role_Permissions_T_Role" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_User_Role_T_Role" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_SalesOrders_Details_T_SalesOrders" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Supplier_Raw_Material_Type_T_Supplier" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_User_Role_T_Users" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="zhongyi_ERPModel.sysdiagrams" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_output" Width="1.5" PointX="5.875" PointY="25.375" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_output_Details" Width="1.5" PointX="8.125" PointY="7.75" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Product_output_Details_T_Product" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Product_output_Details_T_Product_output" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_Inventory" Width="1.5" PointX="10.25" PointY="21.25" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material" Width="1.5" PointX="8" PointY="18.625" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_Details_T_Raw_Material" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Raw_Material_Inventory_T_Raw_Material" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_output" Width="1.5" PointX="13.375" PointY="1" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_output_Details" Width="1.5" PointX="15.625" PointY="7.875" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_Raw_Material_output_Details_T_Raw_Material" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_Raw_Material_output_Details_T_Raw_Material_output" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

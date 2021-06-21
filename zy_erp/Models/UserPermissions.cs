@@ -12,10 +12,15 @@ namespace zy_erp.Models
     /// </summary>
     public static class UserPermissions
     {
+        /// <summary>
+        /// 返回用户所能访问的菜单项，返回类型为json字符串
+        /// </summary>
+        /// <param name="JWT加密串"></param>
+        /// <returns></returns>
         //返回用户所能访问的菜单
         public static string UserIsMenu(string token)
         {
-            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+                zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //是否携带用户凭证
             if (token == null)
             {
@@ -49,48 +54,51 @@ namespace zy_erp.Models
             //List<JObject> m = menulist.ConvertAll(s => (JObject)s);
             var json = JsonConvert.SerializeObject(menulist);
             return json;
-        } 
+        }
 
-
-        //用户是否能对当前菜单进行修改
-        public static bool UserIsOperation(int userid,int menuid,string per)
+        /// <summary>
+        /// 用户是否能对当前菜单进行修改
+        /// </summary>
+        /// <param name="用户id"></param>
+        /// <param name="页面id(参考页面文档)"></param>
+        /// <param name="操作类似(列如'update')"></param>
+        /// <returns></returns>
+        public static bool UserIsOperation(int userid, int menuid, string per)
         {
             //实例化db
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //调用存储过程
             string sql = $"exec P_user_menu_Permissions {userid},{menuid}";
             var data = db.Database.SqlQuery<P_user_menu_Permissions_Result>(sql).ToList();
-            //定义判断变量，不为0则为true
-            int i = 0;
             if (data == null)
             {
                 return false;
             }
             else
             {
-                while (true)
+                for (int i = 0; i < data.Count; i++)
                 {
                     if (data[i].permissions_type == per)
                     {
                         return true;
                     }
-                    i++;
-                    if (i == 4)
-                    {
-                        //当前用户无修改权限
-                        return false;
-                    }
                 }
+                //当前用户无修改权限
+                return false;
             }
-            
+
         }
 
-       
 
+        /// <summary>
+        /// 判断是否非法登录并返回用户id，非法登录返回-1
+        /// </summary>
+        /// <param name="JWT加密串"></param>
+        /// <returns></returns>
         //解析JWT密钥返回用户id
         public static int UserJwt(string token)
         {
-           
+
             string jsonstr = "";
             try
             {
@@ -106,7 +114,18 @@ namespace zy_erp.Models
             JObject obj = JObject.Parse(jsonstr);
             //获取当前信息的用户id
             string userid = obj["userinfo"]["userid"].ToString();
-            return int.Parse(userid.ToString());
+            int tempid = int.Parse(userid.ToString());
+
+            //进入缓存查找判断是否非法登录
+            if (RedisHelper.StringGet(userid) == null)
+            {
+                //非法登录
+                return -1;
+            }
+            else
+            {
+                return tempid;
+            }
         }
 
     }

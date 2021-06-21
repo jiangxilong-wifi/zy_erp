@@ -18,18 +18,20 @@ namespace zy_erp.Models
         public T_Raw_Material()
         {
             this.T_PurchaseOrders_Details = new HashSet<T_PurchaseOrders_Details>();
-            this.T_Raw_Material_output = new HashSet<T_Raw_Material_output>();
+            this.T_Raw_Material_Inventory = new HashSet<T_Raw_Material_Inventory>();
+            this.T_Raw_Material_output_Details = new HashSet<T_Raw_Material_output_Details>();
         }
     
         public int rawmaterialtid { get; set; }
         public string rawmaterial_name { get; set; }
-        public Nullable<int> rawmaterial_inventory { get; set; }
         public Nullable<decimal> rawmaterial_price { get; set; }
         public string rawmaterial_introduce { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Raw_Material_output> T_Raw_Material_output { get; set; }
+        public virtual ICollection<T_Raw_Material_Inventory> T_Raw_Material_Inventory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Raw_Material_output_Details> T_Raw_Material_output_Details { get; set; }
     }
 }

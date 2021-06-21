@@ -26,6 +26,7 @@ namespace zy_erp.Models
         public string address { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
+        public string bankcard { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_PurchaseOrders> T_PurchaseOrders { get; set; }

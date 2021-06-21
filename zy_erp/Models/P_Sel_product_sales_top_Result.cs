@@ -11,15 +11,9 @@ namespace zy_erp.Models
 {
     using System;
     
-    public partial class P_sel_keywords_Result
+    public partial class P_Sel_product_sales_top_Result
     {
-        public int productid { get; set; }
         public string product_name { get; set; }
-        public Nullable<decimal> product_price { get; set; }
-        public string product_introduce { get; set; }
-        public string product_use { get; set; }
-        public string product_composition { get; set; }
-        public string product_weaving { get; set; }
-        public string product_process { get; set; }
+        public Nullable<int> xiaoliang { get; set; }
     }
 }

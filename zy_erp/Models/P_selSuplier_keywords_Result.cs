@@ -10,13 +10,14 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Admin
+    public partial class P_selSuplier_keywords_Result
     {
-        public int adminid { get; set; }
-        public string login { get; set; }
-        public string adminName { get; set; }
-        public string pwd { get; set; }
+        public int supplierid { get; set; }
+        public string supplier_name { get; set; }
+        public string address { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string bankcard { get; set; }
     }
 }

@@ -10,16 +10,9 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_PurchaseOrders
+    public partial class P_SelectPurchaseOrdersPage_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_PurchaseOrders()
-        {
-            this.T_PurchaseOrders_Details = new HashSet<T_PurchaseOrders_Details>();
-        }
-    
         public int purchaseorderid { get; set; }
         public Nullable<int> supplierid { get; set; }
         public Nullable<decimal> purchaseorder_price { get; set; }
@@ -27,10 +20,5 @@ namespace zy_erp.Models
         public Nullable<int> state { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> state_ok { get; set; }
-        public Nullable<int> output_ok { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
-        public virtual T_Supplier T_Supplier { get; set; }
     }
 }

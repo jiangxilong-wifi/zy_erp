@@ -14,12 +14,25 @@ namespace zy_erp.Models
     
     public partial class T_Raw_Material_output
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_Raw_Material_output()
+        {
+            this.T_Raw_Material_output_Details = new HashSet<T_Raw_Material_output_Details>();
+        }
+    
         public int outputid { get; set; }
-        public Nullable<int> rawmaterialid { get; set; }
         public Nullable<int> rawmaterial_inventory { get; set; }
         public Nullable<System.DateTime> rawmaterial_date { get; set; }
-        public string state { get; set; }
+        public Nullable<int> state { get; set; }
+        public string state_human { get; set; }
+        public string Operation { get; set; }
+        public string agent { get; set; }
+        public Nullable<int> output_sate { get; set; }
+        public Nullable<decimal> random { get; set; }
+        public Nullable<decimal> random2 { get; set; }
+        public Nullable<decimal> random3 { get; set; }
     
-        public virtual T_Raw_Material T_Raw_Material { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Raw_Material_output_Details> T_Raw_Material_output_Details { get; set; }
     }
 }

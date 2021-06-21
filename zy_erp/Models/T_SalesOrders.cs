@@ -14,14 +14,21 @@ namespace zy_erp.Models
     
     public partial class T_SalesOrders
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_SalesOrders()
+        {
+            this.T_SalesOrders_Details = new HashSet<T_SalesOrders_Details>();
+        }
+    
         public int salesorderid { get; set; }
         public Nullable<int> customerid { get; set; }
-        public string salesorder_price { get; set; }
+        public Nullable<decimal> salesorder_price { get; set; }
         public string salesorder__number { get; set; }
         public Nullable<int> state { get; set; }
         public Nullable<System.DateTime> date { get; set; }
     
         public virtual T_Customer T_Customer { get; set; }
-        public virtual T_SalesOrders_Details T_SalesOrders_Details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_SalesOrders_Details> T_SalesOrders_Details { get; set; }
     }
 }

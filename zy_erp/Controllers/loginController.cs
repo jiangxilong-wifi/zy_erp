@@ -14,8 +14,8 @@ namespace zy_erp.Controllers
         zhongyi_ERPEntities db = new zhongyi_ERPEntities();
         // 用户登录
         [HttpPost]
-        [Route("api/login/dl")]
-        public string dl(T_Users user)
+        [Route("api/login")]
+        public string post(T_Users user)
         {
             var data = db.T_Users.FirstOrDefault(p=>p.login==user.login&&p.pwd==user.pwd);
             if (data!=null)

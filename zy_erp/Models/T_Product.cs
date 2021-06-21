@@ -17,19 +17,25 @@ namespace zy_erp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Product()
         {
-            this.T_Product_output = new HashSet<T_Product_output>();
+            this.T_Product_Inventory = new HashSet<T_Product_Inventory>();
             this.T_SalesOrders_Details = new HashSet<T_SalesOrders_Details>();
+            this.T_Product_output_Details = new HashSet<T_Product_output_Details>();
         }
     
         public int productid { get; set; }
         public string product_name { get; set; }
-        public Nullable<int> product_inventory { get; set; }
         public Nullable<decimal> product_price { get; set; }
         public string product_introduce { get; set; }
+        public string product_use { get; set; }
+        public string product_composition { get; set; }
+        public string product_weaving { get; set; }
+        public string product_process { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Product_output> T_Product_output { get; set; }
+        public virtual ICollection<T_Product_Inventory> T_Product_Inventory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_SalesOrders_Details> T_SalesOrders_Details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Product_output_Details> T_Product_output_Details { get; set; }
     }
 }

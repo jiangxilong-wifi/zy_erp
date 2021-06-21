@@ -10,24 +10,14 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Customer
+    public partial class P_SelectCustomerPage_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_Customer()
-        {
-            this.T_SalesOrders = new HashSet<T_SalesOrders>();
-        }
-    
         public int customerid { get; set; }
         public string customer_name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
         public string lx_human { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_SalesOrders> T_SalesOrders { get; set; }
     }
 }

@@ -256,6 +256,11 @@
     <Compile Include="Controllers\jc\I_CustomerInfoController.cs" />
     <Compile Include="Controllers\jc\I_ShopInfoController.cs" />
     <Compile Include="Controllers\jc\I_SupplieInfoController.cs" />
+    <Compile Include="Controllers\kc\I_Cstorage2Controller.cs" />
+    <Compile Include="Controllers\kc\I_CstorageController.cs" />
+    <Compile Include="Controllers\kc\I_InventoryManagementController.cs" />
+    <Compile Include="Controllers\kc\I_Rstorage2Controller.cs" />
+    <Compile Include="Controllers\kc\I_RstorageController.cs" />
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -277,10 +282,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\product_sal.cs" />
+    <Compile Include="Models\P_selCustomer_keywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelectCustomerPage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\P_SelectProductPage_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\P_SelectPurchaseOrdersPage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelectSupplierPage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_selSuplier_keywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_Sel_Customer_OrdersDetails_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\P_sel_keywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_Sel_product_sales_top_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_Sel_RawMaterial_Inventory_pages_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_userSelMenu_Result.cs">
@@ -296,9 +326,6 @@
     <Compile Include="Models\TokenHelper.cs" />
     <Compile Include="Models\TokenInfo.cs" />
     <Compile Include="Models\PostRequest.cs" />
-    <Compile Include="Models\T_Admin.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\T_Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -320,7 +347,13 @@
     <Compile Include="Models\T_Production_Plan_Details.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\T_Product_Inventory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\T_Product_output.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_Product_output_Details.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_PurchaseOrders.cs">
@@ -332,7 +365,13 @@
     <Compile Include="Models\T_Raw_Material.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\T_Raw_Material_Inventory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\T_Raw_Material_output.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_Raw_Material_output_Details.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_Raw_Material_Type.cs">
@@ -435,7 +474,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\kc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

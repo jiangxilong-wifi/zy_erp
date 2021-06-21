@@ -12,16 +12,14 @@ namespace zy_erp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_SalesOrders_Details
+    public partial class T_Raw_Material_output_Details
     {
-        public int Salesdetailsid { get; set; }
-        public Nullable<int> salesorderid { get; set; }
-        public Nullable<int> product_number { get; set; }
-        public Nullable<int> productid { get; set; }
-        public Nullable<decimal> product_price { get; set; }
-        public Nullable<decimal> price { get; set; }
+        public int Raw_Material_output_Detailsid { get; set; }
+        public Nullable<int> outputid { get; set; }
+        public Nullable<int> rawmaterialid { get; set; }
+        public Nullable<int> rawmaterial_inventory { get; set; }
     
-        public virtual T_Product T_Product { get; set; }
-        public virtual T_SalesOrders T_SalesOrders { get; set; }
+        public virtual T_Raw_Material T_Raw_Material { get; set; }
+        public virtual T_Raw_Material_output T_Raw_Material_output { get; set; }
     }
 }

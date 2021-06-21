@@ -27,20 +27,16 @@ namespace zy_erp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<T_Admin> T_Admin { get; set; }
         public virtual DbSet<T_Customer> T_Customer { get; set; }
         public virtual DbSet<T_Menu> T_Menu { get; set; }
         public virtual DbSet<T_Operation> T_Operation { get; set; }
         public virtual DbSet<T_Permissions> T_Permissions { get; set; }
         public virtual DbSet<T_Product> T_Product { get; set; }
-        public virtual DbSet<T_Product_output> T_Product_output { get; set; }
+        public virtual DbSet<T_Product_Inventory> T_Product_Inventory { get; set; }
         public virtual DbSet<T_Production_Plan> T_Production_Plan { get; set; }
         public virtual DbSet<T_Production_Plan_Details> T_Production_Plan_Details { get; set; }
         public virtual DbSet<T_PurchaseOrders> T_PurchaseOrders { get; set; }
         public virtual DbSet<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
-        public virtual DbSet<T_Raw_Material> T_Raw_Material { get; set; }
-        public virtual DbSet<T_Raw_Material_output> T_Raw_Material_output { get; set; }
         public virtual DbSet<T_Raw_Material_Type> T_Raw_Material_Type { get; set; }
         public virtual DbSet<T_Role> T_Role { get; set; }
         public virtual DbSet<T_Role_Permissions_Menu> T_Role_Permissions_Menu { get; set; }
@@ -50,6 +46,26 @@ namespace zy_erp.Models
         public virtual DbSet<T_Supplier_Raw_Material_Type> T_Supplier_Raw_Material_Type { get; set; }
         public virtual DbSet<T_User_Role> T_User_Role { get; set; }
         public virtual DbSet<T_Users> T_Users { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<T_Product_output> T_Product_output { get; set; }
+        public virtual DbSet<T_Product_output_Details> T_Product_output_Details { get; set; }
+        public virtual DbSet<T_Raw_Material_Inventory> T_Raw_Material_Inventory { get; set; }
+        public virtual DbSet<T_Raw_Material> T_Raw_Material { get; set; }
+        public virtual DbSet<T_Raw_Material_output> T_Raw_Material_output { get; set; }
+        public virtual DbSet<T_Raw_Material_output_Details> T_Raw_Material_output_Details { get; set; }
+    
+        public virtual ObjectResult<P_Sel_Customer_OrdersDetails_Result> P_Sel_Customer_OrdersDetails(Nullable<int> customerid, Nullable<int> salesorderid)
+        {
+            var customeridParameter = customerid.HasValue ?
+                new ObjectParameter("customerid", customerid) :
+                new ObjectParameter("customerid", typeof(int));
+    
+            var salesorderidParameter = salesorderid.HasValue ?
+                new ObjectParameter("salesorderid", salesorderid) :
+                new ObjectParameter("salesorderid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sel_Customer_OrdersDetails_Result>("P_Sel_Customer_OrdersDetails", customeridParameter, salesorderidParameter);
+        }
     
         public virtual ObjectResult<P_sel_keywords_Result> P_sel_keywords(string keywords)
         {
@@ -58,6 +74,45 @@ namespace zy_erp.Models
                 new ObjectParameter("keywords", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_sel_keywords_Result>("P_sel_keywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_Sel_product_sales_top_Result> P_Sel_product_sales_top(Nullable<int> tops, Nullable<System.DateTime> olddate, Nullable<System.DateTime> newdate)
+        {
+            var topsParameter = tops.HasValue ?
+                new ObjectParameter("tops", tops) :
+                new ObjectParameter("tops", typeof(int));
+    
+            var olddateParameter = olddate.HasValue ?
+                new ObjectParameter("olddate", olddate) :
+                new ObjectParameter("olddate", typeof(System.DateTime));
+    
+            var newdateParameter = newdate.HasValue ?
+                new ObjectParameter("newdate", newdate) :
+                new ObjectParameter("newdate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sel_product_sales_top_Result>("P_Sel_product_sales_top", topsParameter, olddateParameter, newdateParameter);
+        }
+    
+        public virtual ObjectResult<P_selCustomer_keywords_Result> P_selCustomer_keywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_selCustomer_keywords_Result>("P_selCustomer_keywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelectCustomerPage_Result> P_SelectCustomerPage(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelectCustomerPage_Result>("P_SelectCustomerPage", pagesizeParameter, pageindexParameter);
         }
     
         public virtual ObjectResult<P_SelectProductPage_Result> P_SelectProductPage(Nullable<int> pagesize, Nullable<int> pageindex)
@@ -71,6 +126,28 @@ namespace zy_erp.Models
                 new ObjectParameter("pageindex", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelectProductPage_Result>("P_SelectProductPage", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_SelectSupplierPage_Result> P_SelectSupplierPage(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelectSupplierPage_Result>("P_SelectSupplierPage", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_selSuplier_keywords_Result> P_selSuplier_keywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_selSuplier_keywords_Result>("P_selSuplier_keywords", keywordsParameter);
         }
     
         public virtual ObjectResult<P_user_menu_Permissions_Result> P_user_menu_Permissions(Nullable<int> userid, Nullable<int> menu)
@@ -93,6 +170,36 @@ namespace zy_erp.Models
                 new ObjectParameter("userid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_userSelMenu_Result>("P_userSelMenu", useridParameter);
+        }
+    
+        public virtual ObjectResult<P_SelectPurchaseOrdersPage_Result> P_SelectPurchaseOrdersPage(Nullable<int> pagesize, Nullable<int> pageindex, Nullable<int> ok)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            var okParameter = ok.HasValue ?
+                new ObjectParameter("ok", ok) :
+                new ObjectParameter("ok", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelectPurchaseOrdersPage_Result>("P_SelectPurchaseOrdersPage", pagesizeParameter, pageindexParameter, okParameter);
+        }
+    
+        public virtual ObjectResult<P_Sel_RawMaterial_Inventory_pages_Result> P_Sel_RawMaterial_Inventory_pages(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sel_RawMaterial_Inventory_pages_Result>("P_Sel_RawMaterial_Inventory_pages", pagesizeParameter, pageindexParameter);
         }
     }
 }
