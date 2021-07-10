@@ -17,9 +17,9 @@ namespace zy_erp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Product()
         {
-            this.T_Product_Inventory = new HashSet<T_Product_Inventory>();
             this.T_SalesOrders_Details = new HashSet<T_SalesOrders_Details>();
             this.T_Product_output_Details = new HashSet<T_Product_output_Details>();
+            this.T_Product_Inventory = new HashSet<T_Product_Inventory>();
         }
     
         public int productid { get; set; }
@@ -32,10 +32,10 @@ namespace zy_erp.Models
         public string product_process { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Product_Inventory> T_Product_Inventory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_SalesOrders_Details> T_SalesOrders_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Product_output_Details> T_Product_output_Details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Product_Inventory> T_Product_Inventory { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace zy_erp.Controllers.kc
                 {
                     id = item.purchaseorderid,
                     price = item.purchaseorder_price,
-                    num = item.purchaseorder__number,
+                    num = item.purchaseorder_numberMax,
                     date = item.date,
                     pruch_ = item.T_PurchaseOrders_Details
                 };
@@ -79,7 +79,7 @@ namespace zy_erp.Controllers.kc
             //获取订单id
             int ordid = int.Parse(dy.orderid.ToString());
             //根据订单号查询总数量
-            int num = int.Parse(db.T_PurchaseOrders.FirstOrDefault(p => p.purchaseorderid == ordid).purchaseorder__number.ToString());
+            int num = int.Parse(db.T_PurchaseOrders.FirstOrDefault(p => p.purchaseorderid == ordid).purchaseorder_numberMax.ToString());
             //随机数确定主订单行
             Random rd = new Random();
             //生成随机总数 

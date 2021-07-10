@@ -39,7 +39,7 @@ namespace zy_erp.Controllers
         {
             using (zhongyi_ERPEntities db = new zhongyi_ERPEntities())
             {
-                var data = db.T_Product.ToList();
+                var data = db.T_Product_Inventory.ToList();
                 return data.Count();
                 
             }

@@ -32,10 +32,8 @@ namespace zy_erp.Models
         public virtual DbSet<T_Operation> T_Operation { get; set; }
         public virtual DbSet<T_Permissions> T_Permissions { get; set; }
         public virtual DbSet<T_Product> T_Product { get; set; }
-        public virtual DbSet<T_Product_Inventory> T_Product_Inventory { get; set; }
         public virtual DbSet<T_Production_Plan> T_Production_Plan { get; set; }
         public virtual DbSet<T_Production_Plan_Details> T_Production_Plan_Details { get; set; }
-        public virtual DbSet<T_PurchaseOrders> T_PurchaseOrders { get; set; }
         public virtual DbSet<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
         public virtual DbSet<T_Raw_Material_Type> T_Raw_Material_Type { get; set; }
         public virtual DbSet<T_Role> T_Role { get; set; }
@@ -53,6 +51,8 @@ namespace zy_erp.Models
         public virtual DbSet<T_Raw_Material> T_Raw_Material { get; set; }
         public virtual DbSet<T_Raw_Material_output> T_Raw_Material_output { get; set; }
         public virtual DbSet<T_Raw_Material_output_Details> T_Raw_Material_output_Details { get; set; }
+        public virtual DbSet<T_PurchaseOrders> T_PurchaseOrders { get; set; }
+        public virtual DbSet<T_Product_Inventory> T_Product_Inventory { get; set; }
     
         public virtual ObjectResult<P_Sel_Customer_OrdersDetails_Result> P_Sel_Customer_OrdersDetails(Nullable<int> customerid, Nullable<int> salesorderid)
         {
@@ -200,6 +200,37 @@ namespace zy_erp.Models
                 new ObjectParameter("pageindex", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sel_RawMaterial_Inventory_pages_Result>("P_Sel_RawMaterial_Inventory_pages", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_SelRaw_Material_keywords_Result> P_SelRaw_Material_keywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRaw_Material_keywords_Result>("P_SelRaw_Material_keywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelRawmaterialAndCount_Result> P_SelRawmaterialAndCount(Nullable<int> index)
+        {
+            var indexParameter = index.HasValue ?
+                new ObjectParameter("index", index) :
+                new ObjectParameter("index", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRawmaterialAndCount_Result>("P_SelRawmaterialAndCount", indexParameter);
+        }
+    
+        public virtual ObjectResult<P_SelProductInventory_Result> P_SelProductInventory(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelProductInventory_Result>("P_SelProductInventory", pagesizeParameter, pageindexParameter);
         }
     }
 }

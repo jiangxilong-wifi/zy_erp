@@ -10,16 +10,9 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Product_Inventory
+    public partial class P_SelRaw_Material_keywords_Result
     {
-        public int inventoryid { get; set; }
-        public Nullable<int> Productid { get; set; }
-        public Nullable<int> productioncount { get; set; }
-        public Nullable<int> salescount { get; set; }
-        public Nullable<int> stockcount { get; set; }
-    
-        public virtual T_Product T_Product { get; set; }
+        public string rawmaterial_name { get; set; }
     }
 }

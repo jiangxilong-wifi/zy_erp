@@ -10,10 +10,8 @@
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Operation" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Permissions" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product" Width="1.5" PointX="5.875" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_Inventory" Width="1.5" PointX="8" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan" Width="1.5" PointX="12.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan_Details" PointX="15" PointY="10.75" Width="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders" Width="1.5" PointX="8" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders_Details" Width="1.5" PointX="10.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_Type" Width="1.5" PointX="5.75" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Role" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
@@ -29,11 +27,8 @@
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Operation_T_Permissions" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Operation_T_Users" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Role_Permissions_T_Permissions" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_Product_Inventory_T_Product" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_SalesOrders_Details_T_Product" ManuallyRouted="false" />
         <AssociationConnector ManuallyRouted="false" Association="zhongyi_ERPModel.FK_T_Production_Plan_Details_T_Production_Plan" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_Details_T_PurchaseOrders" ManuallyRouted="false" />
-        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_T_Supplier" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_Supplier_Raw_Material_Type_Supplier_Raw_Material_Type" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Role_Permissions_T_Role" ManuallyRouted="false" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_User_Role_T_Role" ManuallyRouted="false" />
@@ -53,6 +48,11 @@
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Raw_Material_output_Details" Width="1.5" PointX="15.625" PointY="7.875" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_Raw_Material_output_Details_T_Raw_Material" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_Raw_Material_output_Details_T_Raw_Material_output" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_PurchaseOrders" Width="1.5" PointX="8" PointY="10.625" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_Details_T_PurchaseOrders" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_T_Supplier" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_Inventory" Width="1.5" PointX="8.125" PointY="4.75" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_Product_Inventory_T_Product" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,7 +20,7 @@ namespace zy_erp.Models
         public Nullable<int> rawmaterial_id { get; set; }
         public Nullable<decimal> rawmaterial_price { get; set; }
     
-        public virtual T_PurchaseOrders T_PurchaseOrders { get; set; }
         public virtual T_Raw_Material T_Raw_Material { get; set; }
+        public virtual T_PurchaseOrders T_PurchaseOrders { get; set; }
     }
 }

@@ -13,8 +13,23 @@ namespace zy_erp.Controllers.kc
     /// </summary>
     public class I_CstorageController : ApiController
     {
-        
 
+        /// <summary>
+        /// 分页查询所有库存
+        /// </summary>
+        /// <param name="页码"></param>
+        /// <param name="显示行数"></param>
+        /// <returns></returns>
+        public object Get(int? page, int? index)//页数，显示行数
+        {
+            using (zhongyi_ERPEntities db = new zhongyi_ERPEntities())
+            {
+                string sel = $"exec P_SelProductInventory {page},{index}";
+                var data = db.Database.SqlQuery<P_SelProductInventory_Result>(sel);
+                return data.ToList();
+
+            }
+        }
         /// <summary>
         /// 产品出库
         /// </summary>
@@ -94,6 +109,7 @@ namespace zy_erp.Controllers.kc
                         T_Product_output pro_output = db.T_Product_output.FirstOrDefault(p => p.outputid == outputid_t_pro);
                         pro_output.product_inventory += product_inventory_i;
                         db.SaveChanges();
+                        //审批过后更新库存
                     }
                     else
                     {

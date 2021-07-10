@@ -31,7 +31,7 @@ namespace zy_erp.Controllers.kc
         /// </summary>
         /// <param name="dy"></param>
         /// <returns></returns>
-        public bool Post(dynamic dy)
+        public int Post(dynamic dy)
         {
             // 获取用户id
             int userid = 0;
@@ -42,20 +42,20 @@ namespace zy_erp.Controllers.kc
                 //判断是否非法登录
                 if (userid == -1)
                 {
-                    return false;
+                    return userid;
                 }
                 else
                 {
                     if (!UserPermissions.UserIsOperation(userid, 2, "update"))
                     {
-                        return false;
+                        return -1;
                     }
                 }
             }
             catch (Exception)
             {
 
-                return false;
+                return -1;
             }
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //获取操作人和经办人
@@ -121,11 +121,11 @@ namespace zy_erp.Controllers.kc
 
                 }
 
-                return true;
+                return 1;
             }
             else
             {
-                return false;
+                return 0;
             }
 
         }

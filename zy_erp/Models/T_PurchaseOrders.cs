@@ -23,11 +23,14 @@ namespace zy_erp.Models
         public int purchaseorderid { get; set; }
         public Nullable<int> supplierid { get; set; }
         public Nullable<decimal> purchaseorder_price { get; set; }
-        public string purchaseorder__number { get; set; }
+        public Nullable<int> purchaseorder_numberMax { get; set; }
         public Nullable<int> state { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> state_ok { get; set; }
         public Nullable<int> output_ok { get; set; }
+        public Nullable<decimal> random { get; set; }
+        public Nullable<decimal> random2 { get; set; }
+        public Nullable<decimal> random3 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_PurchaseOrders_Details> T_PurchaseOrders_Details { get; set; }
