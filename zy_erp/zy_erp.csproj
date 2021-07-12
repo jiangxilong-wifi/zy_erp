@@ -256,15 +256,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\jc\I_CustomerInfoController.cs" />
+    <Compile Include="Controllers\jc\I_RawInfoController.cs" />
     <Compile Include="Controllers\jc\I_ShopInfoController.cs" />
     <Compile Include="Controllers\jc\I_SupplieInfoController.cs" />
     <Compile Include="Controllers\kc\I_Cstorage2Controller.cs" />
     <Compile Include="Controllers\kc\I_CstorageController.cs" />
-    <Compile Include="Controllers\kc\I_InventoryManagementController.cs" />
     <Compile Include="Controllers\kc\I_Rstorage2Controller.cs" />
     <Compile Include="Controllers\kc\I_RstorageController.cs" />
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\sc\I_ProductionmanagementController.cs" />
+    <Compile Include="Controllers\sc\I_Production_product_managementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,7 +305,19 @@
     <Compile Include="Models\P_SelProductInventory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\P_SelProductPlanKeywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelProductPlan_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\P_SelRawmaterialAndCount_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRawPageKeywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRawPage_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_SelRaw_Material_keywords_Result.cs">
@@ -355,9 +369,6 @@
     <Compile Include="Models\T_Production_Plan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\T_Production_Plan_Details.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\T_Product_Inventory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -385,9 +396,6 @@
     <Compile Include="Models\T_Raw_Material_output_Details.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\T_Raw_Material_Type.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\T_Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -401,9 +409,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_Supplier.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\T_Supplier_Raw_Material_Type.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_Users.cs">

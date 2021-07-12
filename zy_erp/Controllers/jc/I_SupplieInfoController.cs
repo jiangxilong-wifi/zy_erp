@@ -190,24 +190,18 @@ namespace zy_erp.Controllers
             //判断能否进行删除操作
             if (UserPermissions.UserIsOperation(userid, 1, type))
             {
-                try
+                var data = db.T_Supplier.FirstOrDefault(p => p.supplierid == pid);
+                db.T_Supplier.Remove(data);
+                if (db.SaveChanges() > 0)
                 {
-                    var data = db.T_Supplier.FirstOrDefault(p => p.supplierid == pid);
-                    db.T_Supplier.Remove(data);
-                    if (db.SaveChanges() > 0)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
+                    return 1;
                 }
-                catch (Exception)
+                else
                 {
-
                     return -1;
                 }
+
+
 
             }
             else
@@ -241,7 +235,7 @@ namespace zy_erp.Controllers
                 T_Supplier supplier = new T_Supplier()
                 {
                     supplier_name = (dy.suppliers.name).ToString(),
-                    phone= (dy.suppliers.lxtype).ToString(),
+                    phone = (dy.suppliers.lxtype).ToString(),
                     email = (dy.suppliers.email).ToString(),
                     bankcard = (dy.suppliers.backcare).ToString(),
                     address = (dy.suppliers.address).ToString()
@@ -249,7 +243,8 @@ namespace zy_erp.Controllers
                 };
                 db.T_Supplier.Add(supplier);
                 //操作同步至数据库
-                if(db.SaveChanges() > 0){
+                if (db.SaveChanges() > 0)
+                {
                     return true;
                 }
                 else

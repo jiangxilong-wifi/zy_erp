@@ -10,15 +10,14 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Supplier_Raw_Material_Type
+    public partial class P_SelProductPlan_Result
     {
-        public int Supplier_Raw_Material_Typeid { get; set; }
-        public Nullable<int> rawmaterialtypeid { get; set; }
-        public Nullable<int> supplierid { get; set; }
-    
-        public virtual T_Raw_Material_Type T_Raw_Material_Type { get; set; }
-        public virtual T_Supplier T_Supplier { get; set; }
+        public int Production_Planid { get; set; }
+        public string product_name { get; set; }
+        public Nullable<int> Production_quantity { get; set; }
+        public string head { get; set; }
+        public Nullable<System.DateTime> date { get; set; }
+        public Nullable<int> state { get; set; }
     }
 }

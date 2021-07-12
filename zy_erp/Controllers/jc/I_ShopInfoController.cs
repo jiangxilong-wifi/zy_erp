@@ -219,5 +219,31 @@ namespace zy_erp.Controllers
             
         }
 
+        /// <summary>
+        /// 新增产品
+        /// </summary>
+        /// <param name="t_Product"></param>
+        /// <returns></returns>
+        public bool Post(T_Product t_Product)
+        {
+            if (t_Product != null)
+            {
+                zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+                db.T_Product.Add(t_Product);
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

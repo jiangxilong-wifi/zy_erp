@@ -5,12 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace zy_erp.Controllers.kc
+namespace zy_erp.Controllers.sc
 {
     /// <summary>
-    /// 库存管理
+    /// 生产产品管理
     /// </summary>
-    public class I_InventoryManagementController : ApiController
+    public class I_Production_product_managementController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()

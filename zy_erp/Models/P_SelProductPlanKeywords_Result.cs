@@ -10,17 +10,14 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Production_Plan
+    public partial class P_SelProductPlanKeywords_Result
     {
         public int Production_Planid { get; set; }
-        public Nullable<int> productid { get; set; }
+        public string product_name { get; set; }
         public Nullable<int> Production_quantity { get; set; }
         public string head { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> state { get; set; }
-    
-        public virtual T_Product T_Product { get; set; }
     }
 }

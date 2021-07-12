@@ -116,6 +116,7 @@ namespace zy_erp.Controllers.kc
                     //修改原材料出库单为已申请出库，累加出库数量
                     T_Raw_Material_output data = db.T_Raw_Material_output.FirstOrDefault(p => p.random == (decimal)ran && p.random2 == (decimal)ran2 && p.random3 == (decimal)ran3);
                     data.rawmaterial_inventory += number;
+                    //-1为已经申请，等待审核（审批状态）
                     data.state = -1;
                     db.SaveChanges();
 

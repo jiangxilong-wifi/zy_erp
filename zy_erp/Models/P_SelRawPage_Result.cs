@@ -10,15 +10,12 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Production_Plan_Details
+    public partial class P_SelRawPage_Result
     {
-        public int Production_Plan_Detailsid { get; set; }
-        public Nullable<int> Production_Planid { get; set; }
-        public string Production_quantity { get; set; }
-        public Nullable<int> rawmaterial_inventory { get; set; }
-    
-        public virtual T_Production_Plan T_Production_Plan { get; set; }
+        public int rawmaterialtid { get; set; }
+        public string rawmaterial_name { get; set; }
+        public Nullable<decimal> rawmaterial_price { get; set; }
+        public string rawmaterial_introduce { get; set; }
     }
 }
