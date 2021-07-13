@@ -109,7 +109,13 @@ namespace zy_erp.Controllers.kc
                         T_Product_output pro_output = db.T_Product_output.FirstOrDefault(p => p.outputid == outputid_t_pro);
                         pro_output.product_inventory += product_inventory_i;
                         db.SaveChanges();
-                        //审批过后更新库存
+                        //通过产品id查询库存id并更新库存
+                        T_Product_Inventory product_Inventory = db.T_Product_Inventory.FirstOrDefault(p => p.Productid == productid_i);
+                        //销售总数
+                        product_Inventory.salescount += product_inventory_i;
+                        //库存剩余
+                        product_Inventory.stockcount -= product_inventory_i;
+                        db.SaveChanges();
                     }
                     else
                     {

@@ -302,6 +302,12 @@
     <Compile Include="Models\P_SelectSupplierPage_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\P_SelPlannumberKeywored_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelPlannumber_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\P_SelProductInventory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -311,6 +317,15 @@
     <Compile Include="Models\P_SelProductPlan_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\P_SelProduct_PlanPage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelPro_PlanKeywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelPro_PlanState_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\P_SelRawmaterialAndCount_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -318,6 +333,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_SelRawPage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRawPlanKeywords_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_SelRaw_Material_keywords_Result.cs">

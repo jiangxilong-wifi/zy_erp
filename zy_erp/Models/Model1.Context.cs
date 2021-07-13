@@ -273,5 +273,55 @@ namespace zy_erp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRawPageKeywords_Result>("P_SelRawPageKeywords", keywordsParameter);
         }
+    
+        public virtual ObjectResult<P_SelPlannumber_Result> P_SelPlannumber()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelPlannumber_Result>("P_SelPlannumber");
+        }
+    
+        public virtual ObjectResult<P_SelPlannumberKeywored_Result> P_SelPlannumberKeywored(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelPlannumberKeywored_Result>("P_SelPlannumberKeywored", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelRawPlanKeywords_Result> P_SelRawPlanKeywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRawPlanKeywords_Result>("P_SelRawPlanKeywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelProduct_PlanPage_Result> P_SelProduct_PlanPage(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelProduct_PlanPage_Result>("P_SelProduct_PlanPage", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_SelPro_PlanKeywords_Result> P_SelPro_PlanKeywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelPro_PlanKeywords_Result>("P_SelPro_PlanKeywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelPro_PlanState_Result> P_SelPro_PlanState()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelPro_PlanState_Result>("P_SelPro_PlanState");
+        }
     }
 }

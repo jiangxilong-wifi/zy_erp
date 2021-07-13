@@ -110,16 +110,18 @@ namespace zy_erp.Controllers.kc
                     //修改库存的库存数
                     T_Raw_Material_Inventory _Raw_Material_Inventory = db.T_Raw_Material_Inventory.FirstOrDefault(p => p.Inventoryid == productid_i);
                     //修改库存数
-                    _Raw_Material_Inventory.stockcount -= number;
+                    _Raw_Material_Inventory.stockcount = _Raw_Material_Inventory.stockcount - number;
+                    //修改出库数
+                    _Raw_Material_Inventory.salescount = _Raw_Material_Inventory.salescount + number;
                     db.SaveChanges();
-
                     //修改原材料出库单为已申请出库，累加出库数量
                     T_Raw_Material_output data = db.T_Raw_Material_output.FirstOrDefault(p => p.random == (decimal)ran && p.random2 == (decimal)ran2 && p.random3 == (decimal)ran3);
+                    //确定新增出库记录数量
                     data.rawmaterial_inventory += number;
                     //-1为已经申请，等待审核（审批状态）
                     data.state = -1;
                     db.SaveChanges();
-
+                    //审批过后更新库存
                 }
 
                 return 1;
@@ -129,6 +131,66 @@ namespace zy_erp.Controllers.kc
                 return 0;
             }
 
+        }
+
+
+
+        /// <summary>
+        /// 查询总生产计划号
+        /// </summary>
+        /// <returns></returns>
+        public object Get()
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            string sel = $"exec P_SelPlannumber";
+            var data = db.Database.SqlQuery<P_SelPlannumber_Result>(sel);
+            return data.ToList();
+        }
+
+
+
+        [HttpGet]
+        [Route("api/I_Cstorage2/Count")]
+        /// <summary>
+        /// 原料库存记录总数
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            return db.T_Raw_Material_Inventory.Count();
+        }
+
+
+
+        /// <summary>
+        /// 模糊查询生产计划编号
+        /// </summary>
+        /// <param name="keywords"></param>
+        /// <returns></returns>
+        public object Get(string keywords)
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            string sel = $"exec P_SelPlannumberKeywored '{keywords}'";
+            var data = db.Database.SqlQuery<P_SelPlannumberKeywored_Result>(sel);
+            return data.ToList();
+        }
+
+
+
+        [HttpGet]
+        [Route("api/I_Cstorage2/SelRaw")]
+        /// <summary>
+        /// 模糊查询原材料信息
+        /// </summary>
+        /// <param name="keywords"></param>
+        /// <returns></returns>
+        public object SelRaw(string keywords)
+        {
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            string sel = $"exec P_SelRawPlanKeywords '{keywords}'";
+            var data = db.Database.SqlQuery<P_SelRawPlanKeywords_Result>(sel);
+            return data.ToList();
         }
 
 

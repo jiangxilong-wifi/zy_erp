@@ -10,26 +10,16 @@
 namespace zy_erp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_Production_Plan
+    public partial class P_SelPro_PlanState_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_Production_Plan()
-        {
-            this.T_Raw_Material_output = new HashSet<T_Raw_Material_output>();
-        }
-    
         public int Production_Planid { get; set; }
         public string SerialNumber { get; set; }
-        public Nullable<int> productid { get; set; }
+        public string product_name { get; set; }
         public Nullable<int> Production_quantity { get; set; }
         public string head { get; set; }
+        public string product_weaving { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> state { get; set; }
-    
-        public virtual T_Product T_Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Raw_Material_output> T_Raw_Material_output { get; set; }
     }
 }

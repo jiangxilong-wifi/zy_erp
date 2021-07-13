@@ -46,8 +46,9 @@
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_PurchaseOrders_T_Supplier" />
         <EntityTypeShape EntityType="zhongyi_ERPModel.T_Product_Inventory" Width="1.5" PointX="8.125" PointY="4.75" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_Product_Inventory_T_Product" />
-        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan" Width="1.5" PointX="8.125" PointY="24.75" />
+        <EntityTypeShape EntityType="zhongyi_ERPModel.T_Production_Plan" Width="1.5" PointX="8.125" PointY="24.5" />
         <AssociationConnector Association="zhongyi_ERPModel.FK_T_Production_Plan_T_Product" />
+        <AssociationConnector Association="zhongyi_ERPModel.FK_T_Raw_Material_output_T_Production_Plan" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

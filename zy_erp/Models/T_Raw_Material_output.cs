@@ -31,8 +31,10 @@ namespace zy_erp.Models
         public Nullable<decimal> random { get; set; }
         public Nullable<decimal> random2 { get; set; }
         public Nullable<decimal> random3 { get; set; }
+        public Nullable<int> Production_Planid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Raw_Material_output_Details> T_Raw_Material_output_Details { get; set; }
+        public virtual T_Production_Plan T_Production_Plan { get; set; }
     }
 }
