@@ -20,8 +20,17 @@ namespace zy_erp.Controllers
             var data = db.T_Users.FirstOrDefault(p=>p.login==user.login&&p.pwd==user.pwd);
             if (data!=null)
             {
-                //将用户数据写入缓存
-                RedisHelper.StringSet(data.userid.ToString(),data.userid);
+                try
+                {
+                    //将用户数据写入缓存
+                    RedisHelper.StringSet(data.userid.ToString(), data.userid);
+                }
+                catch (Exception)
+                {
+
+                    return "1";
+                }
+               
                 //创建字典
                 Dictionary<string, Object> userinfo = new Dictionary<string, Object>();
                 T_Users userob = new T_Users()

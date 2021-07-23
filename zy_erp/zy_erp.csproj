@@ -265,6 +265,7 @@
     <Compile Include="Controllers\kc\I_RstorageController.cs" />
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\qx\I_PermissionsController.cs" />
     <Compile Include="Controllers\sc\I_ProductionmanagementController.cs" />
     <Compile Include="Controllers\sc\I_Production_product_managementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -339,6 +340,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_SelRaw_Material_keywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRoleKeywords_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRolePage_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\P_SelRolePermissions_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\P_selSuplier_keywords_Result.cs">

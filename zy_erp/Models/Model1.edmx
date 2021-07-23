@@ -584,6 +584,17 @@
         <Function Name="P_SelRawPlanKeywords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="keywords" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="P_SelRoleKeywords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="keywords" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="P_SelRolePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pagesize" Type="int" Mode="In" />
+          <Parameter Name="pageindex" Type="int" Mode="In" />
+        </Function>
+        <Function Name="P_SelRolePermissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleid" Type="int" Mode="In" />
+          <Parameter Name="munname" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="P_selSuplier_keywords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="keywords" Type="nvarchar" Mode="In" />
         </Function>
@@ -1172,6 +1183,17 @@
           <Parameter Name="keywords" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="P_SelPro_PlanState" ReturnType="Collection(zhongyi_ERPModel.P_SelPro_PlanState_Result)" />
+          <FunctionImport Name="P_SelRolePage" ReturnType="Collection(zhongyi_ERPModel.P_SelRolePage_Result)">
+            <Parameter Name="pagesize" Mode="In" Type="Int32" />
+            <Parameter Name="pageindex" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="P_SelRoleKeywords" ReturnType="Collection(zhongyi_ERPModel.P_SelRoleKeywords_Result)">
+          <Parameter Name="keywords" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_SelRolePermissions" ReturnType="Collection(zhongyi_ERPModel.P_SelRolePermissions_Result)">
+            <Parameter Name="roleid" Mode="In" Type="Int32" />
+            <Parameter Name="munname" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="P_Sel_Customer_OrdersDetails_Result">
           <Property Type="Int32" Name="Salesdetailsid" Nullable="false" />
@@ -1613,6 +1635,20 @@
           <Property Type="String" Name="product_weaving" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="date" Nullable="true" />
           <Property Type="Int32" Name="state" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="P_SelRolePage_Result">
+          <Property Type="Int32" Name="userid" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="role_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="P_SelRoleKeywords_Result">
+          <Property Type="Int32" Name="userid" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="role_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="P_SelRolePermissions_Result">
+          <Property Type="String" Name="menu_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="permissions_type" Nullable="true" MaxLength="50" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2155,6 +2191,32 @@
                 <ScalarProperty Name="product_weaving" ColumnName="product_weaving" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="state" ColumnName="state" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_SelRolePage" FunctionName="zhongyi_ERPModel.Store.P_SelRolePage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_SelRolePage_Result">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_SelRoleKeywords" FunctionName="zhongyi_ERPModel.Store.P_SelRoleKeywords">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_SelRoleKeywords_Result">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_SelRolePermissions" FunctionName="zhongyi_ERPModel.Store.P_SelRolePermissions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zhongyi_ERPModel.P_SelRolePermissions_Result">
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+                <ScalarProperty Name="permissions_type" ColumnName="permissions_type" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

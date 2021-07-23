@@ -36,7 +36,7 @@ namespace zy_erp.Controllers.sc
         public int Get()
         {
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
-            var data = db.T_Production_Plan.Where(p => p.state == 1).ToList();
+            var data = db.T_Production_Plan.Where(p => p.state != 0).ToList();
             return data.Count();
         }
 

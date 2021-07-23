@@ -75,7 +75,7 @@ namespace zy_erp.Controllers.kc
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //获取操作人和经办人
             string rk_human = dy.op_rk_human.ToString();
-            string rk_jsr = dy.op_rk_human.ToString();
+            string rk_jsr = db.T_Users.FirstOrDefault(p => p.userid == userid).username;
             //获取订单id
             int ordid = int.Parse(dy.orderid.ToString());
             //根据订单号查询总数量

@@ -107,6 +107,70 @@ namespace zy_erp.Controllers
             }
             return objlist;
         }
+
+
+        /// <summary>
+        /// 获取当前在线的用户
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/Index/UserOnline")]
+        [HttpGet]
+        public object UserOnline()
+        {
+            //集合存储id
+            List<string> userlist = new List<string>();
+            List<string> ob= RedisHelper.GetMatchKeys("*");
+            zhongyi_ERPEntities db = new zhongyi_ERPEntities();
+            foreach (var item in ob)
+            {
+                //获取每个在线用户的用户名
+                int id = int.Parse(item);
+                string username = db.T_Users.FirstOrDefault(p => p.userid ==id ).username;
+                userlist.Add(username);
+            }
+            return userlist;
+        }
+
+
+        
+        /// <summary>
+        /// 删除用户的缓存退出系统
+        /// </summary>
+        /// <param name="dy"></param>
+        /// <returns></returns>
+        public bool Delete(dynamic dy)
+        {
+            //获取用户id
+            int userid = 0;
+            try
+            {
+                //获取用户id
+                userid = UserPermissions.UserJwt(dy.token.ToString());
+                //判断是否非法登录
+                if (userid == -1)
+                {
+                    return false;
+                }
+                else
+                {
+                    //删除用户缓存
+                    if (RedisHelper.KeyDel(userid.ToString()))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
+        }
         
     }
 }

@@ -323,5 +323,40 @@ namespace zy_erp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelPro_PlanState_Result>("P_SelPro_PlanState");
         }
+    
+        public virtual ObjectResult<P_SelRolePage_Result> P_SelRolePage(Nullable<int> pagesize, Nullable<int> pageindex)
+        {
+            var pagesizeParameter = pagesize.HasValue ?
+                new ObjectParameter("pagesize", pagesize) :
+                new ObjectParameter("pagesize", typeof(int));
+    
+            var pageindexParameter = pageindex.HasValue ?
+                new ObjectParameter("pageindex", pageindex) :
+                new ObjectParameter("pageindex", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRolePage_Result>("P_SelRolePage", pagesizeParameter, pageindexParameter);
+        }
+    
+        public virtual ObjectResult<P_SelRoleKeywords_Result> P_SelRoleKeywords(string keywords)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("keywords", keywords) :
+                new ObjectParameter("keywords", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRoleKeywords_Result>("P_SelRoleKeywords", keywordsParameter);
+        }
+    
+        public virtual ObjectResult<P_SelRolePermissions_Result> P_SelRolePermissions(Nullable<int> roleid, string munname)
+        {
+            var roleidParameter = roleid.HasValue ?
+                new ObjectParameter("roleid", roleid) :
+                new ObjectParameter("roleid", typeof(int));
+    
+            var munnameParameter = munname != null ?
+                new ObjectParameter("munname", munname) :
+                new ObjectParameter("munname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_SelRolePermissions_Result>("P_SelRolePermissions", roleidParameter, munnameParameter);
+        }
     }
 }

@@ -58,8 +58,8 @@ namespace zy_erp.Controllers.kc
             }
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //获取操作人和经办人
-            string rk_human = dy.op_rk_human.ToString();
-            string rk_jsr = dy.op_rk_human.ToString();
+            string rk_human = db.T_Users.FirstOrDefault(p => p.userid == userid).username;
+            string rk_jsr = dy.op_rk_jsr.ToString();
             //随机数确定主订单行
             Random rd = new Random();
             double ran =(double)(rd.Next(100))*0.3;

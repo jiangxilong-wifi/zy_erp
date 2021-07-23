@@ -59,8 +59,11 @@ namespace zy_erp.Controllers.kc
             }
             zhongyi_ERPEntities db = new zhongyi_ERPEntities();
             //获取操作人和经办人
-            string rk_human = dy.op_rk_human.ToString();
-            string rk_jsr = dy.op_rk_human.ToString();
+            string rk_human = db.T_Users.FirstOrDefault(p => p.userid == userid).username;
+            string rk_jsr = dy.op_rk_jsr.ToString();
+            //通过生产编号查询id
+            string planser = dy.planid.ToString();
+            int planid = db.T_Production_Plan.FirstOrDefault(p => p.SerialNumber == planser).Production_Planid;
             //随机数确定主订单行
             Random rd = new Random();
             //生成随机总数 
@@ -79,7 +82,8 @@ namespace zy_erp.Controllers.kc
                 state_human = "",
                 random = (decimal)ran,
                 random2 = (decimal)ran2,
-                random3 = (decimal)ran3
+                random3 = (decimal)ran3,
+                Production_Planid= planid
             };
             db.T_Raw_Material_output.Add(t_put);
             if (db.SaveChanges() > 0)
